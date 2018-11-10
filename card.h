@@ -1,8 +1,9 @@
 #ifndef CARD_H_
-    enum FaceAnimal {crab, penguin, octopus, turtle, walrus};
-    enum FaceBackground {red, green, purple, blue, yellow};
+#define CARD_H_
 
 class Card{
+    enum FaceAnimal {crab, penguin, octopus, turtle, walrus};
+    enum FaceBackground {red, green, purple, blue, yellow};
 
     FaceAnimal face;
     FaceBackground colour;
