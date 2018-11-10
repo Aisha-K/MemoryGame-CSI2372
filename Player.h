@@ -1,7 +1,9 @@
-#include <string>
-#include "Reward.h"
 
 #ifndef PLAYER_H
+#define PLAYER_H
+
+#include <string>
+#include "reward.h"
 
 class Player{
     std::string name;
@@ -15,6 +17,8 @@ class Player{
     int getRubies() const;
     void addReward(const Reward&);
     void setDisplay(bool endOfGame);
+    friend std::ostream& operator<<(std:: ostream& stream, const Player& player);
+
     
 };
 
