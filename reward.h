@@ -7,7 +7,8 @@
 class Reward{
     int rubyValue;
 
-    friend RewardDeck Reward(int rubyValue);
+    //Reward::Deck(int rubyValue);
+    Reward(int rubyValue);
     friend std::ostream& operator<<(std:: ostream& stream, const Reward& reward);
 
 };
