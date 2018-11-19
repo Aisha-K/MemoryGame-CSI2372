@@ -1,12 +1,12 @@
-#include "cardDeck.h"
-
 
 #ifndef REWARDDECK_H
 #define REWARDDECK_H
 
-class Reward;
+#include "deck.h"
 
-class RewardDeck{
+class Reward; //forward declaration
+
+class RewardDeck : public Deck<RewardDeck> {
     Reward *rewardPtr;
     //Reward reward;
 

@@ -14,6 +14,9 @@ class Reward{
     Reward(int rubyVal): rubyValue(rubyVal){};  //constructor
     friend std::ostream& operator<<(std:: ostream& stream, const Reward& reward);
 
+    public:
+    //add conversion operators to type int returning rubies
+
 };
 
 #endif
