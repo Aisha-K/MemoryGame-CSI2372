@@ -1,5 +1,5 @@
-#ifndef DECK_
-#define DECK_
+#ifndef DECK_H
+#define DECK_H
 
 template<class C> //can write <typename C> too
 class Deck{

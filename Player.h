@@ -12,18 +12,19 @@ class Player{
     std::string name;
     std::string sideOfBoard;
     int numOfRubies;
-    bool isActive;
+    bool isPlayerActive;
     Side side;
 
     public:
     std::string getName() const {return name;}
-    void setActive(bool isActive);
+    void setActive(bool active) { isPlayerActive=active; }
+    bool isActive() const {return isPlayerActive;}
     int getNRubies() const {return numOfRubies; }
     void addReward(const Reward&);
     void setDisplay(bool endOfGame);
-    Side getSide() {return side;}
+    Side getSide() const {return side;}
     void setSide(Side newSide) {side=newSide;}
-    friend std::ostream& operator<<(std:: ostream& stream, const Player& player);
+    friend std::ostream& operator<<(std:: ostream& os, const Player& player);
 
     
 };

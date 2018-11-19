@@ -4,14 +4,14 @@
 
 #include "deck.h"
 
-class Reward; //forward declaration
+class Reward; 
 
 class RewardDeck : public Deck<RewardDeck> {
-    Reward *rewardPtr;
+    //Reward *rewardPtr;
     //Reward reward;
 
 public:
-    RewardDeck();
+    static RewardDeck& make_RewardDeck();
 
     //has frienc access to reward, will create objects of type Reward
     Reward* Reward(int rubyValue);
