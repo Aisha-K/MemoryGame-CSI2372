@@ -1,17 +1,30 @@
 #ifndef CARD_H_
 #define CARD_H_
+#include <string>
+using namespace std;
 
 class Card{
-    enum FaceAnimal {crab, penguin, octopus, turtle, walrus};
-    enum FaceBackground {red, green, purple, blue, yellow};
+    friend class CardDeck;
+
+    enum FaceAnimal {Crab, Penguin, Octopus, Turtle, Walrus};
+    enum FaceBackground {Red, Green, Purple, Blue, Yellow};
+    string FaceAnimalString[5] = {"C","P","O","T","W"};
+    string FaceBackgroundString[5] = {"r","g","p","b","y"};
+    int numRows;
 
     FaceAnimal face;
     FaceBackground colour;
-    int getNRows();
     private:
-        Card(FaceAnimal face, FaceBackground colour);
+        Card(FaceAnimal face, FaceBackground colour, int rows);
         Card& operator=(const Card& card);
         Card(const Card& card);
+        int getNRows() const;
+        string operator()(int i);
+
+    public:
+        //For conversion of such FaceAnimal A = c;      where c is a Card object
+        operator FaceAnimal() const{return face;}
+        operator FaceBackground() const{return colour;}
 };
 
 #endif
