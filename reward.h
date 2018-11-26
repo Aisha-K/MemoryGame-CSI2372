@@ -6,16 +6,19 @@
 
 
 class Reward{
-    int rubyValue;
+    friend class RewardDeck;
+    int rubyValue; //can be values 1 to 4, inclusive
 
-    //gives friend access to the function Reward* Reward(int rubyValue) in class rewardDeck, which will create Reward objects
-    friend Reward* RewardDeck::Reward(int rubyValue);
-
-    Reward(int rubyVal): rubyValue(rubyVal){};  //constructor
-    friend std::ostream& operator<<(std:: ostream& stream, const Reward& reward);
+    Reward(int rubyVal): rubyValue(rubyVal){}  //constructor
+    friend std::ostream& operator<<(std:: ostream& os, const Reward& reward);
+    //private copy and assignment ctors
+    Reward& operator=(const Reward& reward);
+    Reward(const Reward& reward);
 
     public:
-    //add conversion operators to type int returning rubies
+    //For conversion of reward to int
+    operator int() const{return rubyValue;}
+
 
 };
 

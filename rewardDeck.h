@@ -3,21 +3,25 @@
 #define REWARDDECK_H
 
 #include "deck.h"
+#include "reward.h" 
 
-class Reward; 
+class RewardDeck : public Deck<Reward> {
+    static std::array<Reward*,7> rewardsArr;
+    int nextRewardIndex;
 
-class RewardDeck : public Deck<RewardDeck> {
-    //Reward *rewardPtr;
-    //Reward reward;
+    RewardDeck(){nextRewardIndex=0;}
+    //private copy and assignment operators to prevent assignning/copying
+    RewardDeck& operator=(const RewardDeck& rewardDeck);
+    RewardDeck(const RewardDeck& rewardDeck);
+
+    //overriding abstract class methods
+    bool isEmpty() const; 
+    void shuffle();
+    Reward* getNext();
+
 
 public:
-    static RewardDeck& make_RewardDeck();
-
-    //has frienc access to reward, will create objects of type Reward
-    Reward* Reward(int rubyValue);
-
-
-
+   static RewardDeck& make_RewardDeck();
 
 };
 
