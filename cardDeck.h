@@ -5,8 +5,10 @@
 #include "card.h" 
 
 class CardDeck: public Deck<Card>{
+    static std::array<Card*,7> cardsArr;
+    int nextCardIndex;
     private:
-        CardDeck();
+        CardDeck(){nextCardIndex=0;}
         //private copy and assignment operators to prevent assignning/copying
         CardDeck& operator=(const CardDeck& cardDeck);
         CardDeck(const CardDeck& cardDeck);
