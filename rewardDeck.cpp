@@ -17,15 +17,15 @@ void RewardDeck::shuffle(){
     std::shuffle(std::begin(rewardsArr), std::end(rewardsArr), rng);
 }
 
-
+/**
+ * returns next card or nullptr if deck is empty
+ */
 Reward* RewardDeck::getNext(){
     if(!isEmpty()){
         return rewardsArr[nextRewardIndex++];
     }
 
-    //loops back around to return first card
-    nextRewardIndex=0;
-    return rewardsArr[nextRewardIndex++];
+    return nullptr;
 }
 
 /**
