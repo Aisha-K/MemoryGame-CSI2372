@@ -2,7 +2,7 @@
 #include <iostream>
 
 //card constructor
-Card::Card(FaceAnimal faceVal, FaceBackground colourVal, int rows=3): face(faceVal),
+Card::Card(FaceAnimal faceVal, FaceBackground colourVal, int rows): face(faceVal),
             colour(colourVal), numRows(rows) {
 }
 
@@ -32,8 +32,4 @@ string Card::operator()(int i){
     }
 
     return row;
-}
-
-int main(){
-
 }

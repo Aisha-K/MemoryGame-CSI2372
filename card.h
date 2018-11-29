@@ -15,7 +15,7 @@ class Card{
     FaceAnimal face;
     FaceBackground colour;
     private:
-        Card(FaceAnimal face, FaceBackground colour, int rows);
+        Card(FaceAnimal face, FaceBackground colour, int rows=3);
         Card& operator=(const Card& card);
         Card(const Card& card);
         int getNRows() const;
