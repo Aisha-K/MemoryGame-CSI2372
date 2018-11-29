@@ -16,6 +16,11 @@ bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
     return false;
 }
 
+/**
+ * Board constructor
+ * initializes board and all variables
+ * shuffles and selects card to be used in this game
+*/
 Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
                 cardDeck(CardDeck::make_CardDeck()), cardsOnBoard({}){
     for ( auto &tableRow : cardsDisplay){
@@ -57,15 +62,25 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
     }
 
 
+    /**
+     * returns the card corresponding to (Letter,Num) of the board
+    */
     Card* Board::getCard( const Letter& letter, const Number& num){
         return cardsOnBoard[ getCardIndex(letter, num) ];
     }
 
+    /**
+     * Replaces the card corresponding to (Letter,Num) of the board
+     * with the card pointer provided as the third arguement
+    */
     void Board::setCard( const Letter& letter, const Number& num, Card* cardPtr){
         cardsOnBoard[ getCardIndex(letter, num) ]= cardPtr;
         
     }
 
+/**
+ * overwriting board "cout <<" operation to display the entire board in a board like manner
+*/
  std::ostream& operator<<(std:: ostream& os, const Board& board){
     string BoardString = "";
     for (int i=0; i< board.cardsDisplay.size(); ++i){
@@ -84,10 +99,21 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
  * Throws exception if specified location out of bounds
 */
 bool Board::turnFaceUp(const Letter& let, const Number& num){
+
     //If the card is already faceup then return false
     if (isFaceUp(let,num)){
         return false;
+    } else if (let==C && num==three) {  //blank cards
+        return false;
     }
+
+    //getting index of first position of the card, so top left value of card pos
+    int row = getFirstIndexOfCard(let);
+    int col = getFirstIndexOfCard(num);
+    //replacing the string array's representation of the card to the face up representation
+    (cardsDisplay[row]).replace(getFirstIndexOfCard(num), 3, (*getCard(let,num))(0) );
+    (cardsDisplay[row+1]).replace(getFirstIndexOfCard(num), 3, (*getCard(let,num))(1) );
+    (cardsDisplay[row+2]).replace(getFirstIndexOfCard(num), 3, (*getCard(let,num))(2) );
 
     //true since successfully turned over
     return true;
@@ -109,5 +135,6 @@ int main(){
     cout << "testing is faceup, post turnover: " <<
     b->isFaceUp(Board::Letter::D,Board::Number::three) << endl; //true
 
+    cout << *b <<endl;
 }
 #endif
