@@ -4,13 +4,16 @@
 #include "rewardDeck.h"
 #include "cardDeck.h"
 #include "card.h"
+#include <exception>
+
 
 
 class Board{
     Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
     Deck<Card>& cardDeck;
 
-    std::array<Card*,24> cardsOnBoard;
+    std::array<Card*,25> cardsOnBoard;
+
 
     //cout << operator override
     friend std::ostream& operator<<(std:: ostream& os, const Board& board);
@@ -36,13 +39,17 @@ class Board{
     void reset();
     //add print function
 
-    /**helper function, returns index corresponding to the first row of the display where the card corresponding
-    *to the given Letter is stored, (same for the column if a Number is given)
-    */
+    //helper functions
+
+    // returns index corresponding to the first row of the display where the card corresponding
+    //to the given Letter is stored, (same for the column if a Number is given)
     template<typename T>
     int getFirstIndexOfCard(T enumtype) const{
         return (enumtype*4);
     }
+
+    //returns index in the array of card pointers that the number and letter correspond to
+    int getCardIndex(const Letter& letter, const Number& number) const;
 
 };
 

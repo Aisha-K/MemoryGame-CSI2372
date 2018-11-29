@@ -43,12 +43,28 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
         }
     }
 
+
     //Selecting cards to be on board
     cardDeck.shuffle();
     for(int i=0; i<cardsOnBoard.size(); ++i){
         cardsOnBoard[i] = cardDeck.getNext();
     }
 }
+
+    //returns index in the array of card pointers that the number and letter correspond to
+    int Board::getCardIndex(const Letter& letter, const Number& number) const{
+        return letter*5 + number;
+    }
+
+
+    Card* Board::getCard( const Letter& letter, const Number& num){
+        return cardsOnBoard[ getCardIndex(letter, num) ];
+    }
+
+    void Board::setCard( const Letter& letter, const Number& num, Card* cardPtr){
+        cardsOnBoard[ getCardIndex(letter, num) ]= cardPtr;
+        
+    }
 
  std::ostream& operator<<(std:: ostream& os, const Board& board){
     string BoardString = "";
