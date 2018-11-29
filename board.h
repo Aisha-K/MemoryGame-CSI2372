@@ -1,5 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H
+#define DEBUG_BOARD
 #include "rewardDeck.h"
 #include "cardDeck.h"
 #include "card.h"
@@ -8,6 +9,9 @@
 class Board{
     Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
     Deck<Card>& cardDeck;
+
+    //cout << operator override
+    friend std::ostream& operator<<(std:: ostream& os, const Board& board);
     
     //holds array of Strigns correspoding to display of the game
     //19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
