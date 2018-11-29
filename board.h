@@ -35,7 +35,7 @@ class Board{
     */
     template<typename T>
     int getFirstIndexOfCard(T enumtype) const{
-        return (enumType*4);
+        return (enumtype*4);
     }
 
 };
