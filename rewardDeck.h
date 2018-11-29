@@ -2,10 +2,17 @@
 #ifndef REWARDDECK_H
 #define REWARDDECK_H
 
+//#define DEBUG_REWARDDECK
+
 #include "deck.h"
 #include "reward.h" 
 
 class RewardDeck : public Deck<Reward> {
+
+    #ifdef DEBUG_REWARDDECK     //set to priate to test functionality of private functions
+    public:
+    #endif
+
     static std::array<Reward*,7> rewardsArr;
     int nextRewardIndex;
 

@@ -1,5 +1,5 @@
 #include "rewardDeck.h"
-//#include <iostream>
+
 
 std::array<Reward*,7> RewardDeck::rewardsArr={new Reward(1), new Reward(1), new Reward(1), new Reward(2), new Reward(2), new Reward(3), new Reward(4)};
 
@@ -15,6 +15,7 @@ RewardDeck& RewardDeck::make_RewardDeck(){
 void RewardDeck::shuffle(){
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(rewardsArr), std::end(rewardsArr), rng);
+    nextRewardIndex=0;
 }
 
 /**
@@ -36,32 +37,36 @@ bool RewardDeck::isEmpty() const{
 }
 
 
+#ifdef DEBUG_REWARDDECK
+#include <iostream>
+int main(){
+     RewardDeck& r= RewardDeck::make_RewardDeck();  //create rewarddeck
 
-// int main(){
-//      RewardDeck& r= RewardDeck::make_RewardDeck();
+    for(Reward* p: r.rewardsArr){       //printing rewards from variable rewardsArr std::array directly
+        std::cout<< *p << ", ";
+    }
+        std::cout<<" \n";
 
-//     for(Reward* p: r.rewardsArr){
-//             std::cout<< *p << ", ";
-//     }
-//         std::cout<<" ....  \n";
+    while(!r.isEmpty()){                    //printing rewards using getNext
+        std::cout<< *(r.getNext())<<", ";
+    }
+    std::cout<<" \n";
 
-//     while(!r.isEmpty()){
-//         std::cout<< *(r.getNext())<<" ";
-//     }
-//     std::cout<<" .... \n";
+    r.shuffle();    //shuffle
 
-//     r.shuffle();
+    for(Reward* p: r.rewardsArr){   //printing rewards from variable rewardsArr std::array directly
+        std::cout<< *p<<", ";
+    }
 
-//     for(Reward* p: r.rewardsArr){
-//             std::cout<< *p<<", ";
-//     }
+    std::cout<<"  \n";
 
-//     std::cout<<" .... \n";
+     RewardDeck& r2= RewardDeck::make_RewardDeck();       //make new deck
 
-//     for(int i=0; i<7; i++){
-//         std::cout<< *(r.getNext())<<" ";
-//     }
-//     std::cout<<" .... \n";
+    for(int i=0; i<7; i++){
+        std::cout<< *(r2.getNext())<<", ";
+    }
+    std::cout<<"  \n";
 
 
-//  }
+ }
+ #endif
