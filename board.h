@@ -10,12 +10,14 @@ class Board{
     Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
     Deck<Card>& cardDeck;
 
+    std::array<Card*,24> cardsOnBoard;
+
     //cout << operator override
     friend std::ostream& operator<<(std:: ostream& os, const Board& board);
     
     //holds array of Strigns correspoding to display of the game
     //19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
-    std::array<std::array<string,19>,19> cardsDisplay;
+    std::array<string,19> cardsDisplay;
 
     public:
     enum Letter { A, B, C, D, E};     //corresponding to row
