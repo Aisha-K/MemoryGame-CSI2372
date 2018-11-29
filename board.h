@@ -9,11 +9,11 @@ class Board{
     
     //holds array of Strigns correspoding to display of the game
     //19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
-    std::array<string,19> cardsDisplay;
+    std::array<std::array<string,19>,19> cardsDisplay;
 
     public:
-    enum class Letter { A, B, C, D, E};     //corresponding to row
-    enum class Number{ one, two, three, four, five};    //corresponds to column
+    enum Letter { A, B, C, D, E};     //corresponding to row
+    enum Number{ one, two, three, four, five};    //corresponds to column
     
     public:
     //add ctor Board, throws not enough cards exception
@@ -27,6 +27,15 @@ class Board{
     void setCard( const Letter&, const Number&, Card* );
     void reset();
     //add print function
+
+    /**helper function, returns index corresponding to the first row of the display where the card corresponding
+    *to the given Letter is stored, (same for the column if a Number is given)
+    */
+    template<typename T>
+    int getFirstIndexOfCard(T enumType){
+        return (enumType*4);
+    }
+
 };
 
 #endif
