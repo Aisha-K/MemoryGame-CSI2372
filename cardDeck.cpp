@@ -20,7 +20,7 @@ CardDeck::CardDeck(): nextCardIndex(0) {
 
 //public CardDeck method to make a card deck and return the same CardDeck throughout program execution
 CardDeck& CardDeck::make_CardDeck(){
-    static CardDeck c= CardDeck();  
+    static CardDeck c = CardDeck();  
     return c;
 }
 
@@ -36,6 +36,7 @@ Card* CardDeck::getNext(){
 }
 
 void CardDeck::shuffle(){
+    nextCardIndex = 0;
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(cardsArr), std::end(cardsArr), rng);
 }
@@ -47,7 +48,31 @@ bool CardDeck::isEmpty() const{
     return nextCardIndex>=cardsArr.size();
 }
 
+#ifdef DEBUG_CARDDECK
+//main function for debugging
 int main(){
-    CardDeck& r= CardDeck::make_CardDeck();
-    
+    //creating card
+    Deck<Card>& c= CardDeck::make_CardDeck();
+    //printing the cards
+    cout << "The cards are (unshuffled):" <<endl;
+    //outputting cards
+    while (!c.isEmpty()){
+        Card* cardToTest = c.getNext();
+        for (int i=0;i<3; ++i){
+            cout<< (*cardToTest)(i) <<endl;
+        }
+        cout << endl;
+    }
+
+    //testing shuffle
+    cout << "The cards are (shuffled):" <<endl;
+    c.shuffle();
+    while (!c.isEmpty()){
+        Card* cardToTest = c.getNext();
+        for (int i=0;i<3; ++i){
+            cout<< (*cardToTest)(i) <<endl;
+        }
+        cout << endl;
+    }
 }
+#endif

@@ -17,7 +17,7 @@ int Card::getNRows() const{
 }
 
 //returns the string corresponding to the row i for a card
-string Card::operator()(int i){
+string Card::operator()(int i) const{
     //enum returns an index so can use it with string of names to get card row string
     string row;
 

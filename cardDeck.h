@@ -1,5 +1,6 @@
 #ifndef CARDDECK_H_
 #define CARDDECK_H_
+//#define DEBUG_CARDDECK
 
 #include "deck.h"
 #include "card.h" 

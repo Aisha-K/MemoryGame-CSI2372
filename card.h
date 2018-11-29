@@ -19,9 +19,9 @@ class Card{
         Card& operator=(const Card& card);
         Card(const Card& card);
         int getNRows() const;
-        string operator()(int i);
 
     public:
+        string operator() (int i) const;
         //For conversion of such FaceAnimal A = c;      where c is a Card object
         operator FaceAnimal() const{return face;}
         operator FaceBackground() const{return colour;}

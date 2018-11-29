@@ -6,10 +6,10 @@
 
 template<class C> //can write <typename C> too
 class Deck{
-
-    virtual bool isEmpty() const=0; 
-    virtual void shuffle()=0;
-    virtual C* getNext()=0;
+    public:
+        virtual bool isEmpty() const=0; 
+        virtual void shuffle()=0;
+        virtual C* getNext()=0;
 
 };
 
