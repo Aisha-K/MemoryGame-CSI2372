@@ -1,11 +1,13 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include"rewardDeck.h"
+#include "rewardDeck.h"
+#include "cardDeck.h"
 #include "card.h"
 
 
 class Board{
     Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
+    Deck<Card>& cardDeck;
     
     //holds array of Strigns correspoding to display of the game
     //19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
@@ -32,7 +34,7 @@ class Board{
     *to the given Letter is stored, (same for the column if a Number is given)
     */
     template<typename T>
-    int getFirstIndexOfCard(T enumType){
+    int getFirstIndexOfCard(T enumtype) const{
         return (enumType*4);
     }
 
