@@ -9,6 +9,14 @@
 
 
 class Board{
+
+    // class NoMoreCardsException : std::exception {
+    //     public:
+    //     const char * what () const throw (){
+    // 	return "Exception: Not enough cards to make a deck";
+    //     }
+    // };
+
     Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
     Deck<Card>& cardDeck;
 

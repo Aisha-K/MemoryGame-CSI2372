@@ -5,6 +5,8 @@
  * Function to return true if card at position (letter,number) is faced up
 */
 bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
+    getCardIndex(letter, number); //checking if a valid position was entered, throws exception of type OutOfRange if not valid
+
     int row = getFirstIndexOfCard(letter);
     int col = getFirstIndexOfCard(number);
 
@@ -56,9 +58,20 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
     }
 }
 
-    //returns index in the array of card pointers that the number and letter correspond to
-    int Board::getCardIndex(const Letter& letter, const Number& number) const{
-        return letter*5 + number;       //5 cards per row, number = column
+    /**returns index in the array of card pointers that the number and letter correspond to
+    *throws OutOfRange exception if card is out of range
+    */
+    int Board::getCardIndex(const Letter& letter, const Number& num) const{
+
+        if( letter==C && num==three){   //if blank card
+            throw std::out_of_range ("Exception: Position C3 holds no card");
+        }
+
+        if( letter>D || num>five){   //if blank card
+            throw std::out_of_range ("Excception: Out of range");
+        }
+
+        return letter*5 + num;       //5 cards per row, number = column
     }
 
 
@@ -66,6 +79,7 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
      * returns the card corresponding to (Letter,Num) of the board
     */
     Card* Board::getCard( const Letter& letter, const Number& num){
+        
         return cardsOnBoard[ getCardIndex(letter, num) ];
     }
 
@@ -78,6 +92,7 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
 
 
         if(isFaceUp(letter, num)){  //updates string array so display shows new card, if it was already face up
+
                 //getting index of first position of the card, so top left value of card pos
                 int row = getFirstIndexOfCard(letter);
                 int col = getFirstIndexOfCard(num);
@@ -110,11 +125,10 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
  * Throws exception if specified location out of bounds
 */
 bool Board::turnFaceUp(const Letter& let, const Number& num){
+    getCardIndex(let, num); //checking if a valid position was entered, throws exception of type OutOfRange if not valid
 
     //If the card is already faceup then return false
     if (isFaceUp(let,num)){
-        return false;
-    } else if (let==C && num==three) {  //blank cards
         return false;
     }
 
@@ -159,5 +173,23 @@ int main(){
 
     cout << "Display once both cards swapped \n" << *b <<endl;
 
+    cout<<"Testing throwing exceptions: ";
+
+    try{
+        card1=b->getCard(Board::Letter::C,Board::Number::three);
+    }
+    catch(exception& e){
+        cout<<"\n Trying getCard with position C3: " << e.what();
+    }
+
+    try{
+        b->turnFaceUp(Board::Letter::E,Board::Number::three); 
+    }
+    catch(exception& e){
+        cout<<"\n Trying turnFaceUp with position E3: " << e.what() <<"\n";
+    }
+
+
 }
+
 #endif
