@@ -67,8 +67,8 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
             throw std::out_of_range ("Exception: Position C3 holds no card");
         }
 
-        if( letter>D || num>five){   //if blank card
-            throw std::out_of_range ("Excception: Out of range");
+        if( letter>E || letter<A || num>five || num<one ){   //if blank card
+            throw std::out_of_range ("Exception: Out of range");
         }
 
         return letter*5 + num;       //5 cards per row, number = column
@@ -209,21 +209,30 @@ int main(){
 
     cout << "Display once both cards swapped \n" << *b <<endl;
 
+    //Testing throwing exceptions
     cout<<"Testing throwing exceptions: ";
 
     try{
-        card1=b->getCard(Board::Letter::C,Board::Number::three);
+        card1=b->getCard(Board::Letter::C,Board::Number::three);    //Testing blank position C3
     }
     catch(exception& e){
         cout<<"\n Trying getCard with position C3: " << e.what();
     }
 
-    try{
-        b->turnFaceUp(Board::Letter::E,Board::Number::three); 
+    try{    //testing enum Number equivalent to int 5 using static_cast (should fail because we only have 5 enums mapped to int's 0-4)
+        b->turnFaceUp(Board::Letter::A, static_cast<Board::Number>(5) ) ; 
     }
     catch(exception& e){
-        cout<<"\n Trying turnFaceUp with position E3: " << e.what() <<"\n";
+        cout<<"\n Trying turnFaceUp with position A6: " << e.what();
     }
+
+        try{
+        b->getCard( static_cast<Board::Letter>(-1) , Board::Number::five) ; 
+    }
+    catch(exception& e){    //testing enum letter equivalent to int -1 using static_cast (should fail because we only have 5 enums mapped to int's 0-4)
+        cout<<"\n Trying getCard with position enum Letter=-1 and column 5: " << e.what() <<"\n";
+    }
+
     cout <<endl;
     
     //resetting board
