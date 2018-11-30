@@ -58,7 +58,7 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
 
     //returns index in the array of card pointers that the number and letter correspond to
     int Board::getCardIndex(const Letter& letter, const Number& number) const{
-        return letter*5 + number;
+        return letter*5 + number;       //5 cards per row, number = column
     }
 
 
@@ -75,6 +75,17 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
     */
     void Board::setCard( const Letter& letter, const Number& num, Card* cardPtr){
         cardsOnBoard[ getCardIndex(letter, num) ]= cardPtr;
+
+
+        if(isFaceUp(letter, num)){  //updates string array so display shows new card, if it was already face up
+                //getting index of first position of the card, so top left value of card pos
+                int row = getFirstIndexOfCard(letter);
+                int col = getFirstIndexOfCard(num);
+                //replacing the string array's representation of the card to the face up representation
+                (cardsDisplay[row]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(0) );
+                (cardsDisplay[row+1]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(1) );
+                (cardsDisplay[row+2]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(2) );
+        }
         
     }
 
@@ -136,5 +147,17 @@ int main(){
     b->isFaceUp(Board::Letter::D,Board::Number::three) << endl; //true
 
     cout << *b <<endl;
+
+    //testing getCard, and setCard by swapping 2 cards 
+    b->turnFaceUp(Board::Letter::D,Board::Number::four);
+    cout << "Displaying two cards to be swapped \n" << *b <<endl;
+
+    Card* card1=b->getCard(Board::Letter::D,Board::Number::three);  
+    Card* card2=b->getCard(Board::Letter::D,Board::Number::four);
+    b->setCard(Board::Letter::D,Board::Number::three, card2);   
+    b->setCard(Board::Letter::D,Board::Number::four, card1);
+
+    cout << "Display once both cards swapped \n" << *b <<endl;
+
 }
 #endif
