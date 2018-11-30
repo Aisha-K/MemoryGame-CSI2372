@@ -145,6 +145,29 @@ bool Board::turnFaceUp(const Letter& let, const Number& num){
 }
 
 /**
+ * Changes state of specified card to face down
+ * Returns false if card at already face down
+ * Throws exception if specified location out of bounds
+*/
+bool Board::turnFaceDown(const Letter& let, const Number& num){
+    //card already face down
+    if (!isFaceUp(let,num)){
+        return false;
+    }
+
+    //getting index of first position of the card, so top left value of card pos
+    int row = getFirstIndexOfCard(let);
+    int col = getFirstIndexOfCard(num);
+    //replacing the string array's representation of the card to the face up representation
+    (cardsDisplay[row]).replace(getFirstIndexOfCard(num), 3, "zzz" );
+    (cardsDisplay[row+1]).replace(getFirstIndexOfCard(num), 3, "zzz" );
+    (cardsDisplay[row+2]).replace(getFirstIndexOfCard(num), 3, "zzz" );
+
+    //true since successfully turned over
+    return true;
+}
+
+/**
  * Reset's all cards back to face down
  */
 void Board::reset(){
@@ -207,6 +230,9 @@ int main(){
     b->reset();
     cout << "Board reset:" <<endl << *b <<endl;
 
+    cout << "Testing turn card down" <<endl;
+    b->turnFaceUp(Board::Letter::D,Board::Number::two);
+    cout << "Facedown succesful? " << b->turnFaceDown(Board::Letter::D,Board::Number::two) <<endl;
 }
 
 #endif
