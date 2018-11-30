@@ -48,6 +48,7 @@ class Board{
     //add print function
 
     //helper functions
+    void checkForException(const Letter&, const Number&) const;
 
     // returns index corresponding to the first row of the display where the card corresponding
     //to the given Letter is stored, (same for the column if a Number is given)
