@@ -144,6 +144,19 @@ bool Board::turnFaceUp(const Letter& let, const Number& num){
     return true;
 }
 
+/**
+ * Reset's all cards back to face down
+ */
+void Board::reset(){
+    for ( auto &tableRow : cardsDisplay){
+        for (int i=0; i< tableRow.size(); ++i){
+            if (tableRow[i] != *" "){
+                tableRow[i] = *"z";
+            }
+        }
+    }
+}
+
 //---------TESTING------------
 #ifdef DEBUG_BOARD
 int main(){
@@ -188,7 +201,11 @@ int main(){
     catch(exception& e){
         cout<<"\n Trying turnFaceUp with position E3: " << e.what() <<"\n";
     }
-
+    cout <<endl;
+    
+    //resetting board
+    b->reset();
+    cout << "Board reset:" <<endl << *b <<endl;
 
 }
 
