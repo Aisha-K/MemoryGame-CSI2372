@@ -47,3 +47,40 @@ const Player& Game::getPlayer( Player::Side s){
     //throws exception if side isn't in range
     throw std::out_of_range ("Exception: Side not in players");
 }
+
+
+/**
+ * Calls corresponding getCard of board
+ */
+Card* Game::getCard( const Board::Letter& letter, const Board::Number& num){
+    return b.getCard(letter, num);
+}
+
+/**
+ * Calls corresponding setCard of board
+ */
+void Game::setCard( const Board::Letter& letter, const Board::Number& num, Card* card){
+    return b.setCard(letter,num, card);
+}
+
+/**
+ * Returns the preious card that was turned, i.e. card turned by prev player
+ */
+const Card* Game::getPreviousCard(){
+    return prevCard;
+}
+
+/**
+ * Returns current card
+ */
+const Card* Game::getCurrentCard(){
+    return currCard;
+}
+
+/**
+ * sets current card by updating prev card and current card
+ */
+void Game::setCurrentCard( const Card* givenCard){
+    prevCard = currCard;
+    currCard = givenCard;
+}
