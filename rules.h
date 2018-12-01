@@ -1,5 +1,6 @@
 #ifndef RULES_H
 #define RULES_H
+//#define DEBUG_RULES
 
 #include "game.h"
 
@@ -10,6 +11,9 @@ bool gameOver(const Game&); // returns true if the number of rounds has reached 
 bool roundOver(const Game&); // returns true if there is only one active Player left.
 const Player& getNextPlayer(const Game& );
 
+
+//helper functions
+int getNumberOfActivePlayers(const Game&);
 };
 
 #endif
