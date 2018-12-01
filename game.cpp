@@ -21,16 +21,12 @@ int Game::getRound(){
  */
 void Game::addPlayer( const Player& p){
     
-    //ensuring player of that side is not already in the game
-    bool containsSide = false;
-    for (const Player &player : players){
-        if (player.getSide() == p.getSide())
-            containsSide = true;
+    Player newP = p;
+    //ensuring players have a unique size and more then 4 players can't exist (same side conflict)
+    if (players.size() < 4){
+        newP.setSide( Player::Side(players.size())  );
+        players.push_back(newP);
     }
-
-    if (!containsSide)
-        players.push_back(p);
-
 }
 
 /**
@@ -110,7 +106,11 @@ void Game::setCurrentCard( const Card* givenCard){
 
 
 std::ostream& operator<<(std:: ostream& os, const Game& game){
-    os << game.b;
+    os << game.b << "\n";
+    for (const Player &player : game.players){
+        os << "\n" << player;
+    }
+
     return os;
 }
 
@@ -153,6 +153,21 @@ int main(){
     //testing setCurrentCard when we want to turn a card face down
     game->setCurrentCard(card2);
     std::cout<<"Testing turning card at B3 down by calling setCurrentCard again\n"<< *game;
+
+    //testing setting the player and game output w/ players
+    Player *p = new Player("Zaid");
+    Player *x = new Player("Aisha");
+    Player *y = new Player("Pentel");
+    Player *z = new Player("Bob");
+    Player *w = new Player("Katarina");     //shouldn't be added (already 4 players)
+
+    game->addPlayer(*p);
+    game->addPlayer(*x);
+    game->addPlayer(*y);
+    game->addPlayer(*z);
+    game->addPlayer(*w);
+
+    cout << *game <<endl;
 
 }
 
