@@ -17,6 +17,7 @@ int Game::getRound(){
 
 /**
  * Adds a player to the game
+ * Ensures a player with that side doesn't previously exist
  */
 void Game::addPlayer( const Player& p){
     
@@ -29,4 +30,20 @@ void Game::addPlayer( const Player& p){
 
     if (!containsSide)
         players.push_back(p);
+
+}
+
+/**
+ * Returns the player at the side specified
+ * If side specified doesn't exist, then throws exception
+ */
+const Player& Game::getPlayer( Player::Side s){
+    
+    for (const Player &player : players){
+        if (player.getSide() == s)
+            return player;
+    }
+
+    //throws exception if side isn't in range
+    throw std::out_of_range ("Exception: Side not in players");
 }

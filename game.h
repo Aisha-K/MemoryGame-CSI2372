@@ -11,7 +11,7 @@ class Game{
 Game();
 int getRound();
 void addPlayer( const Player& );
-Player& getPlayer( Player::Side );
+const Player& getPlayer( Player::Side );
 const Card* getPreviousCard();
 const Card* getCurrentCard();
 void setCurrentCard( const Card*);
