@@ -79,6 +79,7 @@ const Card* Game::getCurrentCard(){
 
 /**
  * sets current card by flipping given card and updating prev card and current card
+ * however, if the card is already face up, turns it face down (for expert mode)
  */
 void Game::setCurrentCard( const Card* givenCard){
     //updating current and prev card
@@ -98,7 +99,12 @@ void Game::setCurrentCard( const Card* givenCard){
     Board::Letter letter = static_cast<Board::Letter> (cardIndex/5);
     Board::Number num = static_cast<Board::Number> (cardIndex%5 );
 
-    b.turnFaceUp(letter,num);
+    bool  turned= b.turnFaceUp(letter,num);
+
+    // //if the card is already face up, we turn it face down
+    if(!turned){
+        b.turnFaceDown(letter,num);
+    }
     
 }
 
@@ -118,8 +124,11 @@ int main(){
     std::cout << *game;
 
     //testing getCurrentcard when no card has been flipped yet
-    // const Card* card0=game->getCurrentCard();
-    // std::cout<<"Testing get Current when no card has been flipped yet: ";
+    std::cout<<"Testing get Current when no card has been flipped yet:  ";
+    const Card* card0=game->getCurrentCard();
+    if(card0==nullptr){
+        std::cout<<"nullptr, no card has been flipped yet \n\n";
+    }
 
     //test getCard and setCurrentCard by seeing if corresponding cards were flipped
     Card* card1=game->getCard(Board::A, Board::one);
@@ -134,12 +143,16 @@ int main(){
     const Card* card3=game->getCurrentCard();
     const Card* card4= game->getPreviousCard();
     std::cout<<"Testing getCurrentCard and getPrevCard by printing out their middle rows\n";
-    std::cout<< "current: "<< (*card3)(1)<<" previous: "<< (*card4)(1) <<"\n";
+    std::cout<< "current: "<< (*card3)(1)<<" previous: "<< (*card4)(1) <<"\n\n";
 
     //test setCard
     game->setCard(Board::E, Board::five, card1);
     game->setCard(Board::B, Board::three, card2);
     std::cout <<"testing setCard by switcing B3 and E5\n" << *game;
+
+    //testing setCurrentCard when we want to turn a card face down
+    game->setCurrentCard(card2);
+    std::cout<<"Testing turning card at B3 down by calling setCurrentCard again\n"<< *game;
 
 }
 
