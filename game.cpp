@@ -11,7 +11,7 @@ Game::Game(): b( *(new Board()) ), round(0), prevCard(nullptr), currCard(nullptr
 /**
  * Gives the current round between 0 and 6
  */
-int Game::getRound(){
+int Game::getRound() const{
     return round;
 }
 
@@ -62,14 +62,14 @@ void Game::setCard( const Board::Letter& letter, const Board::Number& num, Card*
 /**
  * Returns the preious card that was turned, i.e. card turned by prev player
  */
-const Card* Game::getPreviousCard(){
+const Card* Game::getPreviousCard() const{
     return prevCard;
 }
 
 /**
  * Returns current card
  */
-const Card* Game::getCurrentCard(){
+const Card* Game::getCurrentCard() const{
     return currCard;
 }
 

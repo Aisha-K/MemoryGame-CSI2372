@@ -17,11 +17,11 @@ class Game{
     //class methods
     public:
     Game();
-    int getRound();
+    int getRound() const;
     void addPlayer( const Player& );
     const Player& getPlayer( Player::Side );
-    const Card* getPreviousCard();
-    const Card* getCurrentCard();
+    const Card* getPreviousCard() const;
+    const Card* getCurrentCard() const;
     void setCurrentCard( const Card*);
     Card* getCard( const Board::Letter&, const Board::Number& );
     void setCard( const Board::Letter&, const Board::Number&, Card* );
