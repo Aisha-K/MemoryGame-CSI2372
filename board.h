@@ -1,6 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H
-#define DEBUG_BOARD
+//#define DEBUG_BOARD
 #include "rewardDeck.h"
 #include "cardDeck.h"
 #include "card.h"

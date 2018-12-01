@@ -84,3 +84,20 @@ void Game::setCurrentCard( const Card* givenCard){
     prevCard = currCard;
     currCard = givenCard;
 }
+
+
+std::ostream& operator<<(std:: ostream& os, const Game& game){
+    os << game.b;
+    return os;
+}
+
+
+#ifdef DEBUG_GAME
+#include <iostream>
+int main(){
+    
+    Game *game= new Game();
+    std::cout << *game;
+}
+
+#endif
