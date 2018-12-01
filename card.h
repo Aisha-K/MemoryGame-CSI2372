@@ -6,15 +6,17 @@ using namespace std;
 class Card{
     friend class CardDeck;
 
-    enum FaceAnimal {Crab, Penguin, Octopus, Turtle, Walrus};
-    enum FaceBackground {Red, Green, Purple, Blue, Yellow};
-    string FaceAnimalString[5] = {"C","P","O","T","W"};
-    string FaceBackgroundString[5] = {"r","g","p","b","y"};
-    int numRows;
-
-    FaceAnimal face;
-    FaceBackground colour;
+    public:
+        enum FaceAnimal {Crab, Penguin, Octopus, Turtle, Walrus};
+        enum FaceBackground {Red, Green, Purple, Blue, Yellow};
     private:
+        string FaceAnimalString[5] = {"C","P","O","T","W"};
+        string FaceBackgroundString[5] = {"r","g","p","b","y"};
+        int numRows;
+
+        FaceAnimal face;
+        FaceBackground colour;
+    
         Card(FaceAnimal face, FaceBackground colour, int rows=3);
         Card& operator=(const Card& card);
         Card(const Card& card);
