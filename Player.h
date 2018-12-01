@@ -1,6 +1,7 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+//#define DEBUG_PLAYER
 
 #include <string>
 #include "reward.h"
@@ -8,27 +9,30 @@
 class Player{
 
     public:
+        //enum type for the side of the board
         enum Side {top, bottom, left, right};
 
+    //class variables
     private:
     std::string name;
-    std::string sideOfBoard;
     int numOfRubies;
     bool isPlayerActive;
     Side side;
+    bool gameEnded;
 
+    //class methods
     public:
-    std::string getName() const {return name;}
-    void setActive(bool active) { isPlayerActive=active; }
-    bool isActive() const {return isPlayerActive;}
-    int getNRubies() const {return numOfRubies; }
+    Player(std::string);
+    std::string getName() const;
+    void setActive(bool active);
+    bool isActive() const;
+    int getNRubies() const;
     void addReward(const Reward&);
-    void setDisplay(bool endOfGame);
-    Side getSide() const {return side;}
-    void setSide(Side newSide) {side=newSide;}
+    void setDisplayMode(bool endOfGame);
+    Side getSide() const;
+    void setSide(Side newSide);
     friend std::ostream& operator<<(std:: ostream& os, const Player& player);
 
-    
 };
 
 #endif
