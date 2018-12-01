@@ -17,7 +17,7 @@ class Board{
     //     }
     // };
 
-    Deck<Reward>& rewardDeck;  // = RewardDeck::make_RewardDeck();
+    Deck<Reward>& rewardDeck;
     Deck<Card>& cardDeck;
 
     std::array<Card*,25> cardsOnBoard;

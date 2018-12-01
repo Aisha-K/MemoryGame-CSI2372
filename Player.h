@@ -7,8 +7,10 @@
 
 class Player{
 
-    enum class Side {top, bottom, left, right};
+    public:
+        enum Side {top, bottom, left, right};
 
+    private:
     std::string name;
     std::string sideOfBoard;
     int numOfRubies;
