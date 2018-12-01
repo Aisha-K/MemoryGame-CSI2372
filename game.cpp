@@ -33,7 +33,7 @@ void Game::addPlayer( const Player& p){
  * Returns the player at the side specified
  * If side specified doesn't exist, then throws exception
  */
-const Player& Game::getPlayer( Player::Side s){
+const Player& Game::getPlayer( Player::Side s) const{
     
     for (const Player &player : players){
         if (player.getSide() == s)
