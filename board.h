@@ -45,7 +45,6 @@ class Board{
     Card* getCard( const Letter&, const Number& );
     void setCard( const Letter&, const Number&, Card* );
     void reset();
-    //add print function
 
     //helper functions
     void checkForException(const Letter&, const Number&) const;
