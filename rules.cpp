@@ -57,7 +57,7 @@ int Rules::getNumberOfActivePlayers(const Game& game) {
 const Player& Rules::getNextPlayer(const Game& game){
     //checking how many players are in the game to know when to reset to player at side 0
     if(currPlayerSide > getNumberOfActivePlayers(game)){
-        currPlayerSide==0;
+        currPlayerSide=0;
     }
 
     //returns player at side
