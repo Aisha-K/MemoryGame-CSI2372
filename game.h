@@ -12,6 +12,8 @@ class Game{
     const Card *prevCard;       //ptr to a const Card
     const Card *currCard;        //ptr to a const Card
 
+    //cout << operator override
+    friend std::ostream& operator<<(std:: ostream& os, const Game& game);
     //class methods
     public:
     Game();
@@ -23,8 +25,7 @@ class Game{
     void setCurrentCard( const Card*);
     Card* getCard( const Board::Letter&, const Board::Number& );
     void setCard( const Board::Letter&, const Board::Number&, Card* );
-    //cout << operator override
-    friend std::ostream& operator<<(std:: ostream& os, const Game& game);
+ 
 
 
 };

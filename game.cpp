@@ -4,7 +4,7 @@
  * Constructor for game
  * Initialized Board
  */
-Game::Game(): b( *(new Board()) ), round(0){
+Game::Game(): b( *(new Board()) ), round(0), prevCard(nullptr), currCard(nullptr){
 
 }
 
@@ -78,11 +78,28 @@ const Card* Game::getCurrentCard(){
 }
 
 /**
- * sets current card by updating prev card and current card
+ * sets current card by flipping given card and updating prev card and current card
  */
 void Game::setCurrentCard( const Card* givenCard){
+    //updating current and prev card
     prevCard = currCard;
     currCard = givenCard;
+
+    //getting the index of the card (needed to retrieve letter and number so we can call turnFaceUp)
+    int cardIndex=0;
+    for(Card* cardOnBoard : b.cardsOnBoard){
+        if(cardOnBoard==givenCard){
+            break;
+        }
+        ++cardIndex;
+    }
+
+    //getting the letter and number that the positions corresponds
+    Board::Letter letter = static_cast<Board::Letter> (cardIndex/5);
+    Board::Number num = static_cast<Board::Number> (cardIndex%5 );
+
+    b.turnFaceUp(letter,num);
+    
 }
 
 
@@ -95,9 +112,35 @@ std::ostream& operator<<(std:: ostream& os, const Game& game){
 #ifdef DEBUG_GAME
 #include <iostream>
 int main(){
-    
+
     Game *game= new Game();
+    std::cout <<"new game state \n";
     std::cout << *game;
+
+    //testing getCurrentcard when no card has been flipped yet
+    // const Card* card0=game->getCurrentCard();
+    // std::cout<<"Testing get Current when no card has been flipped yet: ";
+
+    //test getCard and setCurrentCard by seeing if corresponding cards were flipped
+    Card* card1=game->getCard(Board::A, Board::one);
+    game->setCurrentCard(card1);
+    card1=game->getCard(Board::B, Board::three);
+    game->setCurrentCard(card1);
+    Card* card2=game->getCard(Board::E, Board::five);
+    game->setCurrentCard(card2);
+    std::cout << "testing getCard and setCurrentCard by flipping cards at pos A1, B3, and E5 \n"<<*game;
+
+    //test getCurrentCard, getPrevCard
+    const Card* card3=game->getCurrentCard();
+    const Card* card4= game->getPreviousCard();
+    std::cout<<"Testing getCurrentCard and getPrevCard by printing out their middle rows\n";
+    std::cout<< "current: "<< (*card3)(1)<<" previous: "<< (*card4)(1) <<"\n";
+
+    //test setCard
+    game->setCard(Board::E, Board::five, card1);
+    game->setCard(Board::B, Board::three, card2);
+    std::cout <<"testing setCard by switcing B3 and E5\n" << *game;
+
 }
 
 #endif

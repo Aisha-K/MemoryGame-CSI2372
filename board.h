@@ -20,22 +20,23 @@ class Board{
     Deck<Reward>& rewardDeck;
     Deck<Card>& cardDeck;
 
-    std::array<Card*,25> cardsOnBoard;
-
-
-    //cout << operator override
-    friend std::ostream& operator<<(std:: ostream& os, const Board& board);
-    
-    //holds array of Strigns correspoding to display of the game
-    //19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
-    std::array<string,19> cardsDisplay;
-
     public:
+    //cardsOnBoard must be made public to be able to flip cards through Game class with the public methods definitions we were given
+    // See setCurrentCard in Game for more
+    std::array<Card*,25> cardsOnBoard;
+    
     enum Letter { A, B, C, D, E};     //corresponding to row
     enum Number{ one, two, three, four, five};    //corresponds to column
+
+    private:
+    //holds array of Strigns correspoding to display of the game. 19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
+    std::array<string,19> cardsDisplay;
+    //cout << operator override
+    friend std::ostream& operator<<(std:: ostream& os, const Board& board);
+
     
     public:
-    //add ctor Board, throws not enough cards exception
+    //ctor Board, throws not enough cards exception
     Board();
 
     //functions below throw exception of type OutOfRange
@@ -46,6 +47,8 @@ class Board{
     void setCard( const Letter&, const Number&, Card* );
     void reset();
 
+
+    private:
     //helper functions
     void checkForException(const Letter&, const Number&) const;
 
