@@ -16,7 +16,7 @@ class Game{
     friend std::ostream& operator<<(std:: ostream& os, const Game& game);
     //class methods
     public:
-    Game();
+    Game(Board &b);
     int getRound() const;
     void addPlayer( const Player& );
     const Player& getPlayer( Player::Side ) const;

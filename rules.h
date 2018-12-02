@@ -1,6 +1,6 @@
 #ifndef RULES_H
 #define RULES_H
-#define DEBUG_RULES
+//#define DEBUG_RULES
 
 #include "game.h"
 

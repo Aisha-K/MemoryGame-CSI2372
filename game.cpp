@@ -4,7 +4,7 @@
  * Constructor for game
  * Initialized Board
  */
-Game::Game(): b( *(new Board()) ), round(0), prevCard(nullptr), currCard(nullptr){
+Game::Game(Board &b): b(b), round(0), prevCard(nullptr), currCard(nullptr){
 
 }
 
@@ -118,41 +118,11 @@ std::ostream& operator<<(std:: ostream& os, const Game& game){
 #ifdef DEBUG_GAME
 #include <iostream>
 int main(){
+    Board *b = new Board();
 
-    Game *game= new Game();
+    Game *game= new Game(*b);
     std::cout <<"new game state \n";
     std::cout << *game;
-
-    //testing getCurrentcard when no card has been flipped yet
-    std::cout<<"Testing get Current when no card has been flipped yet:  ";
-    const Card* card0=game->getCurrentCard();
-    if(card0==nullptr){
-        std::cout<<"nullptr, no card has been flipped yet \n\n";
-    }
-
-    //test getCard and setCurrentCard by seeing if corresponding cards were flipped
-    Card* card1=game->getCard(Board::A, Board::one);
-    game->setCurrentCard(card1);
-    card1=game->getCard(Board::B, Board::three);
-    game->setCurrentCard(card1);
-    Card* card2=game->getCard(Board::E, Board::five);
-    game->setCurrentCard(card2);
-    std::cout << "testing getCard and setCurrentCard by flipping cards at pos A1, B3, and E5 \n"<<*game;
-
-    //test getCurrentCard, getPrevCard
-    const Card* card3=game->getCurrentCard();
-    const Card* card4= game->getPreviousCard();
-    std::cout<<"Testing getCurrentCard and getPrevCard by printing out their middle rows\n";
-    std::cout<< "current: "<< (*card3)(1)<<" previous: "<< (*card4)(1) <<"\n\n";
-
-    //test setCard
-    game->setCard(Board::E, Board::five, card1);
-    game->setCard(Board::B, Board::three, card2);
-    std::cout <<"testing setCard by switcing B3 and E5\n" << *game;
-
-    //testing setCurrentCard when we want to turn a card face down
-    game->setCurrentCard(card2);
-    std::cout<<"Testing turning card at B3 down by calling setCurrentCard again\n"<< *game;
 
     //testing setting the player and game output w/ players
     Player *p = new Player("Zaid");
@@ -169,6 +139,36 @@ int main(){
 
     cout << *game <<endl;
 
+    //testing getCurrentcard when no card has been flipped yet
+    std::cout<<"Testing get Current when no card has been flipped yet:  ";
+    const Card* card0=game->getCurrentCard();
+    if(card0==nullptr){
+        std::cout<<"nullptr, no card has been flipped yet \n\n";
+    }
+
+    //test getCard and setCurrentCard by seeing if corresponding cards were flipped
+    Card* card1=game->getCard(Board::A, Board::one);
+    game->setCurrentCard(card1);
+    card1=game->getCard(Board::B, Board::three);
+    game->setCurrentCard(card1);
+    Card* card2=game->getCard(Board::E, Board::five);
+    game->setCurrentCard(card2);
+    std::cout << "testing getCard and setCurrentCard by flipping cards at pos A1, B3, and E5 \n"<<*game<<endl<<endl;
+
+    //test getCurrentCard, getPrevCard
+    const Card* card3=game->getCurrentCard();
+    const Card* card4= game->getPreviousCard();
+    std::cout<<"Testing getCurrentCard and getPrevCard by printing out their middle rows\n";
+    std::cout<< "current: "<< (*card3)(1)<<" previous: "<< (*card4)(1) <<"\n\n";
+
+    //test setCard
+    game->setCard(Board::E, Board::five, card1);
+    game->setCard(Board::B, Board::three, card2);
+    std::cout <<"testing setCard by switcing B3 and E5\n\n" << *game <<endl <<endl;
+
+    //testing setCurrentCard when we want to turn a card face down
+    game->setCurrentCard(card2);
+    std::cout<<"Testing turning card at B3 down by calling setCurrentCard again\n"<< *game << endl<< endl;
 }
 
 #endif
