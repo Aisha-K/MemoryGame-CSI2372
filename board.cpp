@@ -202,7 +202,6 @@ void Board::reset(){
 void Board::initializeDeck(){
 
     Deck<Card>& cardDeck = CardDeck::make_CardDeck();
-    cardDeck.shuffle();
 
     for(int i=0; i<cardsOnBoard.size(); ++i){
         cardsOnBoard[i] = cardDeck.getNext();

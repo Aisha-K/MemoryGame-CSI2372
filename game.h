@@ -25,6 +25,7 @@ class Game{
     void setCurrentCard( const Card*);
     Card* getCard( const Board::Letter&, const Board::Number& );
     void setCard( const Board::Letter&, const Board::Number&, Card* );
+    void incrementRound();          //REMOVE LATER?
  
 };
 

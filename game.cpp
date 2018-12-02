@@ -114,6 +114,10 @@ std::ostream& operator<<(std:: ostream& os, const Game& game){
     return os;
 }
 
+void Game::incrementRound(){
+    round++;
+}
+
 
 #ifdef DEBUG_GAME
 #include <iostream>

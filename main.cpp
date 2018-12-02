@@ -16,17 +16,20 @@ int main(){
         cin >> userOrExpert;
         std::transform(userOrExpert.begin(), userOrExpert.end(),userOrExpert.begin(), ::toupper);
     }
+    cout <<endl;
     Board *b = new Board();
     Game *g = new Game(*b);
     Rules r = Rules();
+    Deck<Card>& cards = CardDeck::make_CardDeck();
 
     vector<Player*> playersAdd;
 
     //getting player names, max of 4 players
     //creating and adding the players to the game
-    cout << "Enter first players names " <<endl;
+    cout << "Enter first players name " <<endl;
     string playerName;
     for (int i=0; i<4; ++i){
+        cout << "Name: ";
         cin >> playerName;
         Player *p = new Player(playerName);
         playersAdd.push_back(p);
@@ -54,51 +57,96 @@ int main(){
 
     } cout <<endl;
 
-    //Revealing players positions
-    
-    for (int i=0; i<4; i++){
-        try {
-            Player p = g->getPlayer(Player::Side(i)); //gets player at side i (top,bottom,left,right)
 
-            //choosing cards to display based on which side they player is at
-            switch ( i ){
-                case 0 : b->turnFaceUp(Board::A, Board::two);
-                    b->turnFaceUp(Board::A, Board::three);
-                    b->turnFaceUp(Board::A, Board::four);
-                break;
-                case 1 :b->turnFaceUp(Board::E, Board::two);
-                    b->turnFaceUp(Board::E, Board::three);
-                    b->turnFaceUp(Board::E, Board::four); 
-                break;
-                case 2 : b->turnFaceUp(Board::B, Board::one);
-                    b->turnFaceUp(Board::C, Board::one);
-                    b->turnFaceUp(Board::D, Board::one);
-                break;
-                case 3 : b->turnFaceUp(Board::B, Board::five);
-                    b->turnFaceUp(Board::C, Board::five);
-                    b->turnFaceUp(Board::D, Board::five);
-                break;
-            }
 
-            cout<<"Card reveal for player, Enter any key: " << p.getName() <<"\n";
-            cin.get();  //pause to ensure other players do not see current players card reveal
-            cout<< *g;
-            b->reset(); //turns cards face down again
-        }
-        catch(...){ //player does not exist, throws exception
-            
-        }
-    }
 
 
     while (!r.gameOver(*g)){
         b->reset(); //reset board
+        cards.shuffle();
+        //Revealing players positions
+        for (int i=0; i<4; i++){
+            try {
+                Player p = g->getPlayer(Player::Side(i)); //gets player at side i (top,bottom,left,right)
+
+                //choosing cards to display based on which side they player is at
+                switch ( i ){
+                    case 0 : b->turnFaceUp(Board::A, Board::two);
+                        b->turnFaceUp(Board::A, Board::three);
+                        b->turnFaceUp(Board::A, Board::four);
+                    break;
+                    case 1 :b->turnFaceUp(Board::E, Board::two);
+                        b->turnFaceUp(Board::E, Board::three);
+                        b->turnFaceUp(Board::E, Board::four); 
+                    break;
+                    case 2 : b->turnFaceUp(Board::B, Board::one);
+                        b->turnFaceUp(Board::C, Board::one);
+                        b->turnFaceUp(Board::D, Board::one);
+                    break;
+                    case 3 : b->turnFaceUp(Board::B, Board::five);
+                        b->turnFaceUp(Board::C, Board::five);
+                        b->turnFaceUp(Board::D, Board::five);
+                    break;
+                }
+
+                cout<<"Card reveal for player, " << p.getName() <<". Enter any key:\n";
+                cin.get();  //pause to ensure other players do not see current players card reveal
+                cout<< *g;
+                b->reset(); //turns cards face down again
+            }
+            catch(...){ //player does not exist, throws exception
+                
+            }
+        }
+
         //resetting all players to active
         for (int i=0;i<playersAdd.size();++i){
             playersAdd[i]->setActive(true);
         }
 
-        
+        cout << "\nRound " << g->getRound() <<endl <<endl;
+        //While the round isn't over the next active player takes their turn
+        while (!r.roundOver(*g) ){
+            //get next active player
+            const Player &pnext = r.getNextPlayer(*g);
+
+
+            string userCardSelection;
+            cout << "Player, " << pnext.getName() <<" turn." <<endl;
+            cout << "Select a card to turn over in this format: \"LetterNumber\", ex: \"A3\": ";
+            cin >> userCardSelection;
+
+
+            bool validEntry = false;
+            //try user selection and only allow it if it's valid
+            while (!validEntry){
+                //ensuring correct length input
+                while (userCardSelection.size() != 2){
+                    cout << "The input much be of length 2 with form \"A3\". Re-enter: ";
+                    cin >> userCardSelection;
+                }
+
+                try{
+                    g->setCurrentCard(g->getCard(static_cast<Board::Letter>( (int)userCardSelection[0] -65 ) ,static_cast<Board::Number>( (int)userCardSelection[1] -49 ) ));
+                    validEntry = true; //If exception not thrown then entry was valid
+                }
+                //exception thrown due to invalid entry
+                catch(...){
+                    cout << "Invalid entry: Ensure letter is from A-E and number is from 1-5. Re-enter:";
+                    cin >> userCardSelection;
+                }
+            }
+
+            //players flip was not valid so turn player inactive
+            if (!r.isValid(*g) ){
+                Player& pToSet = const_cast<Player&>(pnext);
+                pToSet.setActive(false);
+            }
+            //displaying board after flip (but ensure flip was valid to update player activeness)
+            cout << *g;
+
+        }
+        g->incrementRound();
 
 
     }
