@@ -60,7 +60,7 @@ int main(){
 
 
 
-
+    rubies.shuffle();
 
     while (!r.gameOver(*g)){
         b->reset(); //reset board
@@ -152,8 +152,38 @@ int main(){
 
         }   //end round
         g->incrementRound();
-
+        //giving the winner rubies reward
+        for (Player* player: playersAdd){
+            if ( player->isActive() )
+                player->addReward( *(rubies.getNext()) );
+        }
 
     } //end game
-    
+    //print each players rubies
+    for (Player* player: playersAdd){
+        player->setDisplayMode(true);
+    }
+
+    //print players based on largest amount of rubies to smallest
+    vector<Player*> playersPrint = playersAdd;
+    vector<Player*> playerPrintOrder;
+    while (playersPrint.size() != 0){
+        Player* playerRef = playersPrint[0];
+        int indexOfHighest = 0;
+        int currentIndex = 0;
+
+        for (Player* p: playersPrint){
+            if (p->getNRubies() > playerRef->getNRubies()){
+                playerRef = p;
+                indexOfHighest = currentIndex;
+            }
+            ++currentIndex;
+        }
+        playerPrintOrder.push_back(playerRef);
+        playersPrint.erase(playersPrint.begin() + indexOfHighest);
+    }
+
+    for (Player* p: playerPrintOrder){
+        cout << *p << endl;
+    }
 } //end main
