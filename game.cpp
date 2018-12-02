@@ -78,9 +78,6 @@ const Card* Game::getCurrentCard() const{
  * however, if the card is already face up, turns it face down (for expert mode)
  */
 void Game::setCurrentCard( const Card* givenCard){
-    //updating current and prev card
-    prevCard = currCard;
-    currCard = givenCard;
 
     //getting the index of the card (needed to retrieve letter and number so we can call turnFaceUp)
     int cardIndex=0;
@@ -97,10 +94,14 @@ void Game::setCurrentCard( const Card* givenCard){
 
     bool  turned= b.turnFaceUp(letter,num);
 
-    // //if the card is already face up, we turn it face down
+    // //if the card is already face up
     if(!turned){
-        b.turnFaceDown(letter,num);
+        throw std::invalid_argument ("Card is already face up");
     }
+
+    //updating current and prev card
+    prevCard = currCard;
+    currCard = givenCard;
     
 }
 
@@ -115,7 +116,9 @@ std::ostream& operator<<(std:: ostream& os, const Game& game){
 }
 
 void Game::incrementRound(){
-    round++;
+    prevCard = nullptr;
+    currCard = nullptr;
+    ++round;
 }
 
 

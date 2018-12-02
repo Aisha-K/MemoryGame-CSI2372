@@ -20,7 +20,8 @@ CardDeck::CardDeck(): nextCardIndex(0) {
 
 //public CardDeck method to make a card deck and return the same CardDeck throughout program execution
 CardDeck& CardDeck::make_CardDeck(){
-    static CardDeck c = CardDeck();  
+    static CardDeck c = CardDeck();
+    c.nextCardIndex = 0;
     return c;
 }
 

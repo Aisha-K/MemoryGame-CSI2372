@@ -21,6 +21,7 @@ int main(){
     Game *g = new Game(*b);
     Rules r = Rules();
     Deck<Card>& cards = CardDeck::make_CardDeck();
+    Deck<Reward>& rubies = RewardDeck::make_RewardDeck();
 
     vector<Player*> playersAdd;
 
@@ -64,6 +65,14 @@ int main(){
     while (!r.gameOver(*g)){
         b->reset(); //reset board
         cards.shuffle();
+        
+        cout << "\nRound " << g->getRound() <<endl <<endl;
+
+        //resetting all players to active
+        for (int i=0;i<playersAdd.size();++i){
+            playersAdd[i]->setActive(true);
+        }
+        
         //Revealing players positions
         for (int i=0; i<4; i++){
             try {
@@ -90,8 +99,9 @@ int main(){
                 }
 
                 cout<<"Card reveal for player, " << p.getName() <<". Enter any key:\n";
-                cin.get();  //pause to ensure other players do not see current players card reveal
-                cout<< *g;
+                string s;
+                cin >> s;  //pause to ensure other players do not see current players card reveal
+                cout<< *g <<endl;
                 b->reset(); //turns cards face down again
             }
             catch(...){ //player does not exist, throws exception
@@ -99,14 +109,9 @@ int main(){
             }
         }
 
-        //resetting all players to active
-        for (int i=0;i<playersAdd.size();++i){
-            playersAdd[i]->setActive(true);
-        }
-
-        cout << "\nRound " << g->getRound() <<endl <<endl;
         //While the round isn't over the next active player takes their turn
         while (!r.roundOver(*g) ){
+
             //get next active player
             const Player &pnext = r.getNextPlayer(*g);
 
@@ -143,12 +148,12 @@ int main(){
                 pToSet.setActive(false);
             }
             //displaying board after flip (but ensure flip was valid to update player activeness)
-            cout << *g;
+            cout << *g <<endl;
 
-        }
+        }   //end round
         g->incrementRound();
 
 
-    }
+    } //end game
     
-}
+} //end main
