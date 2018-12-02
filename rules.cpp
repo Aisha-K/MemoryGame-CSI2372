@@ -64,7 +64,6 @@ const Player& Rules::getNextPlayer(const Game& game){
     return game.getPlayer( static_cast<Player::Side>(currPlayerSide ++ ) );
 }
 
-
 //-------TESTING-------
 #ifdef DEBUG_RULES
 #include <iostream>
