@@ -8,7 +8,7 @@
 class Game{
     Board &b;
     int round;
-    vector<Player> players;
+    vector<Player*> players;
     const Card *prevCard;       //ptr to a const Card
     const Card *currCard;        //ptr to a const Card
 

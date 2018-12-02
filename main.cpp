@@ -20,6 +20,8 @@ int main(){
     Game *g = new Game(*b);
     Rules r = Rules();
 
+    vector<Player*> playersAdd;
+
     //getting player names, max of 4 players
     //creating and adding the players to the game
     cout << "Enter first players names " <<endl;
@@ -27,6 +29,7 @@ int main(){
     for (int i=0; i<4; ++i){
         cin >> playerName;
         Player *p = new Player(playerName);
+        playersAdd.push_back(p);
         g->addPlayer(*p);
 
         if (i< 3){
@@ -36,7 +39,7 @@ int main(){
             //ensuring valid entry for add another player
             std::transform(addAnotherPlayer.begin(), addAnotherPlayer.end(),addAnotherPlayer.begin(), ::toupper);
             while ( !((addAnotherPlayer.compare("Y") == 0)||(addAnotherPlayer.compare("N")) ==0 ) ){
-                cout << "Invalid entry: 'Y' or 'N' " << endl;
+                cout << "Invalid entry: Enter 'Y' or 'N' :" << endl;
                 cin >> addAnotherPlayer;
                 std::transform(addAnotherPlayer.begin(), addAnotherPlayer.end(),addAnotherPlayer.begin(), ::toupper);
             }
@@ -77,9 +80,9 @@ int main(){
                 break;
             }
 
-            cout<<"Card reveal for player: " << p.getName() <<"\n";
-            system("pause");  //pause to ensure other players do not see current players card reveal
-            cout<< *b;
+            cout<<"Card reveal for player, Enter any key: " << p.getName() <<"\n";
+            cin.get();  //pause to ensure other players do not see current players card reveal
+            cout<< *g;
             b->reset(); //turns cards face down again
         }
         catch(...){ //player does not exist, throws exception
@@ -91,9 +94,12 @@ int main(){
     while (!r.gameOver(*g)){
         b->reset(); //reset board
         //resetting all players to active
-        for (int i=0;i<4;++i){
-            
+        for (int i=0;i<playersAdd.size();++i){
+            playersAdd[i]->setActive(true);
         }
+
+        
+
 
     }
     

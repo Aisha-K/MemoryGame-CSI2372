@@ -20,11 +20,11 @@ int Game::getRound() const{
  * Ensures a player with that side doesn't previously exist
  */
 void Game::addPlayer( const Player& p){
-    
-    Player newP = p;
+    Player& pNew = const_cast<Player&>(p);
+    Player *newP = &pNew;
     //ensuring players have a unique size and more then 4 players can't exist (same side conflict)
     if (players.size() < 4){
-        newP.setSide( Player::Side(players.size())  );
+        newP->setSide( Player::Side(players.size())  );
         players.push_back(newP);
     }
 }
@@ -35,9 +35,9 @@ void Game::addPlayer( const Player& p){
  */
 const Player& Game::getPlayer( Player::Side s) const{
     
-    for (const Player &player : players){
-        if (player.getSide() == s)
-            return player;
+    for (const Player *player : players){
+        if (player->getSide() == s)
+            return *player;
     }
 
     //throws exception if side isn't in range
@@ -107,10 +107,10 @@ void Game::setCurrentCard( const Card* givenCard){
 
 std::ostream& operator<<(std:: ostream& os, const Game& game){
     os << game.b << "\n";
-    for (const Player &player : game.players){
-        os << "\n" << player;
+    for (const Player *player : game.players){
+        os << "\n" << *player;
     }
-
+    os << "\n";
     return os;
 }
 
