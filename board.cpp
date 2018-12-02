@@ -55,10 +55,7 @@ Board::Board(): cardsOnBoard({}){
 
 
     //Selecting cards to be on board
-    Deck<Card>& cardDeck = CardDeck::make_CardDeck();
-    for(int i=0; i<cardsOnBoard.size(); ++i){
-        cardsOnBoard[i] = cardDeck.getNext();
-    }
+    initializeDeck();
 }
 
     /**returns index in the array of card pointers that the number and letter correspond to
@@ -197,6 +194,18 @@ void Board::reset(){
                 tableRow[i] = *"z";
             }
         }
+    }
+    initializeDeck();
+
+}
+
+void Board::initializeDeck(){
+
+    Deck<Card>& cardDeck = CardDeck::make_CardDeck();
+    cardDeck.shuffle();
+
+    for(int i=0; i<cardsOnBoard.size(); ++i){
+        cardsOnBoard[i] = cardDeck.getNext();
     }
 }
 
