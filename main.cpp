@@ -18,6 +18,7 @@ int main(){
     }
     Board *b = new Board();
     Game *g = new Game(*b);
+    Rules r = Rules();
 
     //getting player names, max of 4 players
     //creating and adding the players to the game
@@ -77,16 +78,23 @@ int main(){
             }
 
             cout<<"Card reveal for player: " << p.getName() <<"\n";
-            string s;
             system("pause");  //pause to ensure other players do not see current players card reveal
             cout<< *b;
             b->reset(); //turns cards face down again
         }
-        catch(...){ //player doesn ot except, throws exception
+        catch(...){ //player does not exist, throws exception
             
         }
     }
 
-    
+
+    while (!r.gameOver(*g)){
+        b->reset(); //reset board
+        //resetting all players to active
+        for (int i=0;i<4;++i){
+            
+        }
+
+    }
     
 }

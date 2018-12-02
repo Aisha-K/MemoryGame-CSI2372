@@ -1,6 +1,12 @@
 #include "rules.h"
 
 /**
+ * Default constructor
+ */
+Rules::Rules(): currPlayerSide(0){
+}
+
+/**
  * returns true is previous and current card match; false otherwise.
  */
 bool Rules::isValid(const Game& game){

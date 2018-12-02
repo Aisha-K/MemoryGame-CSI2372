@@ -26,8 +26,6 @@ class Game{
     Card* getCard( const Board::Letter&, const Board::Number& );
     void setCard( const Board::Letter&, const Board::Number&, Card* );
  
-
-
 };
 
 #endif
