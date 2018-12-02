@@ -70,6 +70,27 @@ const Player& Rules::getNextPlayer(const Game& game){
 #include <iostream>
 int main(){
     //testing active player count
+    Game *g = new Game();
+    Player *p = new Player("Zaid");
+    Player *x = new Player("Aisha");
+    g->addPlayer(*p);
+    g->addPlayer(*x);
 
+    Rules r;
+    cout << "\nTesting active player counts: " << r.getNumberOfActivePlayers(*g) <<endl;  // Output: 2
+
+    //testing card flipping and match
+    Card *c = g->getCard(Board::A,Board::three);
+    g->setCurrentCard(c);
+    Card *d = g->getCard(Board::B,Board::two);
+    g->setCurrentCard(d);
+    cout << boolalpha;
+    cout << "Is it valid? A3 & B2: " << r.isValid(*g) <<endl;
+
+    Card *e = g->getCard(Board::D,Board::five);
+    g->setCurrentCard(e);
+    cout << "Is it valid? B2 & D5: " << r.isValid(*g) <<endl;
+
+    cout << *g <<endl;
 }
 #endif

@@ -1,6 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
-#define DEBUG_GAME //runs unit tests in main
+//#define DEBUG_GAME //runs unit tests in main
 #include "board.h"
 #include "player.h"
 #include <vector>
