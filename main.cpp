@@ -52,5 +52,41 @@ int main(){
 
     //Revealing players positions
     
+    for (int i=0; i<4; i++){
+        try {
+            Player p = g->getPlayer(Player::Side(i)); //gets player at side i (top,bottom,left,right)
+
+            //choosing cards to display based on which side they player is at
+            switch ( i ){
+                case 0 : b->turnFaceUp(Board::A, Board::two);
+                    b->turnFaceUp(Board::A, Board::three);
+                    b->turnFaceUp(Board::A, Board::four);
+                break;
+                case 1 :b->turnFaceUp(Board::E, Board::two);
+                    b->turnFaceUp(Board::E, Board::three);
+                    b->turnFaceUp(Board::E, Board::four); 
+                break;
+                case 2 : b->turnFaceUp(Board::B, Board::one);
+                    b->turnFaceUp(Board::C, Board::one);
+                    b->turnFaceUp(Board::D, Board::one);
+                break;
+                case 3 : b->turnFaceUp(Board::B, Board::five);
+                    b->turnFaceUp(Board::C, Board::five);
+                    b->turnFaceUp(Board::D, Board::five);
+                break;
+            }
+
+            cout<<"Card reveal for player: " << p.getName() <<"\n";
+            string s;
+            system("pause");  //pause to ensure other players do not see current players card reveal
+            cout<< *b;
+            b->reset(); //turns cards face down again
+        }
+        catch(...){ //player doesn ot except, throws exception
+            
+        }
+    }
+
+    
     
 }
