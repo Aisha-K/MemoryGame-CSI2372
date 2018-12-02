@@ -17,8 +17,6 @@ class Board{
     //     }
     // };
 
-    Deck<Reward>& rewardDeck;
-    Deck<Card>& cardDeck;
 
     public:
     //cardsOnBoard must be made public to be able to flip cards through Game class with the public methods definitions we were given

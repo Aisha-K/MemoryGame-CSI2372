@@ -27,8 +27,7 @@ bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
  * initializes board and all variables
  * shuffles and selects card to be used in this game
 */
-Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
-                cardDeck(CardDeck::make_CardDeck()), cardsOnBoard({}){
+Board::Board(): cardsOnBoard({}){
     for ( auto &tableRow : cardsDisplay){
         tableRow = "                   ";
     }
@@ -56,7 +55,7 @@ Board::Board():rewardDeck(RewardDeck::make_RewardDeck()),
 
 
     //Selecting cards to be on board
-    cardDeck.shuffle();
+    Deck<Card>& cardDeck = CardDeck::make_CardDeck();
     for(int i=0; i<cardsOnBoard.size(); ++i){
         cardsOnBoard[i] = cardDeck.getNext();
     }
