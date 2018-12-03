@@ -1,6 +1,5 @@
 #include "expertDisplay.h"
 
-
 ExpertDisplay::ExpertDisplay(){
     makeCardsDisplay();
 }
@@ -14,7 +13,9 @@ void ExpertDisplay::makeCardsDisplay(){
 
 
 bool ExpertDisplay::turnFaceUp(const Letter& let, const Number& num){
-    Board::turnFaceUp(let, num);
+    bool b = Board::turnFaceUp(let, num);
+
+    if(b){
     faceUpCards.push_back( cardsOnBoard[ getCardIndex(let, num) ]  );
 
     int size= faceUpCards.size();
@@ -26,17 +27,49 @@ bool ExpertDisplay::turnFaceUp(const Letter& let, const Number& num){
     (eCardsDisplay[2]).replace(column, 3, (*getCard(let,num))(2) );
 
     (eCardsDisplay[3]).replace(column, 2, enumPosToString(let, num) );  //Adding position, ex:"A0"
+    }
+
+    return b;
 }
 
+//Getting card index in cards array corresponding to the letter and number
+int ExpertDisplay::getIndexOfCard(const Board::Letter& letter, const Board::Number& number) const{
+    //checking for exception (invalid entry)
+    checkForException(letter,number);
 
-//returns a string representation from enum letter and num, ex: A0 to "A0"
+    int letterEnum =letter;
+    int numEnum = number;
+    string numLet = ( static_cast<char>(letter +65) + std::to_string(numEnum+1) );
+
+
+    int index = eCardsDisplay[3].find( numLet) /4;
+
+    return index;
+}
+
+//function to turn the card face down if not previously face down and then remove it from the display
 bool ExpertDisplay::turnFaceDown(const Letter& let, const Number& num){
-    Board::turnFaceDown(let, num);
-    //FINISH
+    
+    bool b = Board::turnFaceDown(let, num);
+
+    //only turn face down if it isn't already face down
+    if (b){
+        int index = getIndexOfCard(let,num);
+
+        faceUpCards.erase(faceUpCards.begin() + index);
+
+        //Adding four empties to the end of row
+        for (string& row: eCardsDisplay){
+            row.replace(index*4, 4, "" );    //removing from the current display
+            row += "    ";  //adding empties to end of row
+        }
+
+    }
+    return b;
 }
 
 
-
+//returns string corresponding to letter and number
 string ExpertDisplay::enumPosToString(const Board::Letter& let, const Board::Number& num){
     int letterEnum =let;
     int numEnum = num;
@@ -61,7 +94,7 @@ void ExpertDisplay::print(ostream& where) const{
 
 int main(){
 
-    Board * e= new ExpertDisplay();
+    Board *e= new ExpertDisplay();
 
     //board before any cards are turned over
     cout<< *e << endl;
@@ -71,8 +104,9 @@ int main(){
     e->turnFaceUp(Board::A, Board::two);
     std::cout<< *e;
 
-
-
+    //testing board display
+    e->turnFaceDown(Board::A,Board::two);
+    std::cout<< *e;
 }
 
 #endif
