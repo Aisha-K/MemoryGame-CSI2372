@@ -39,14 +39,14 @@ class Board{
 
     //functions below throw exception of type OutOfRange
     bool isFaceUp ( const Letter& , const Number&) const; 
-    bool turnFaceUp(const Letter& , const Number&); 
-    bool turnFaceDown(const Letter& , const Number&); 
+    virtual bool turnFaceUp(const Letter& , const Number&); 
+    virtual bool turnFaceDown(const Letter& , const Number&); 
     Card* getCard( const Letter&, const Number& );
     void setCard( const Letter&, const Number&, Card* );
-    void reset();
+    virtual void reset();
 
 
-    private:
+    protected:
     //helper functions
     void checkForException(const Letter&, const Number&) const;
     void initializeDeck();
@@ -59,6 +59,10 @@ class Board{
 
     //returns index in the array of card pointers that the number and letter correspond to
     int getCardIndex(const Letter& letter, const Number& number) const;
+
+    void makeCardsDisplay();
+
+    virtual void print(ostream& where) const;
 
 };
 

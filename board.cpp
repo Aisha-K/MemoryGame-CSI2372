@@ -28,7 +28,14 @@ bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
  * shuffles and selects card to be used in this game
 */
 Board::Board(): cardsOnBoard({}){
-    for ( auto &tableRow : cardsDisplay){
+    makeCardsDisplay();
+    //Selecting cards to be on board
+    initializeDeck();
+}
+
+
+void Board::makeCardsDisplay(){
+        for ( auto &tableRow : cardsDisplay){
         tableRow = "                   ";
     }
     int currentRow = 1;
@@ -52,10 +59,6 @@ Board::Board(): cardsOnBoard({}){
             }
         }
     }
-
-
-    //Selecting cards to be on board
-    initializeDeck();
 }
 
     /**returns index in the array of card pointers that the number and letter correspond to
@@ -110,24 +113,29 @@ Board::Board(): cardsOnBoard({}){
  * overwriting board "cout <<" operation to display the entire board in a board like manner
 */
  std::ostream& operator<<(std:: ostream& os, const Board& board){
+     board.print( os );
+     return os;
+}
+
+void Board::print(ostream& os) const{
     string boardPrefixes[5] = {"A","B","C","D","E"};
     int currentPrefixIndex = 0;
     string BoardString = "";
-    for (int i=0; i< board.cardsDisplay.size(); ++i){
+    for (int i=0; i< cardsDisplay.size(); ++i){
         if ((i % 4)==1)
             BoardString = BoardString + boardPrefixes[currentPrefixIndex++] + " ";
         else
             BoardString = BoardString + "  ";
 
-        for (int x=0; x<board.cardsDisplay.size(); ++x){
-            BoardString = BoardString+board.cardsDisplay[i][x];
+        for (int x=0; x<cardsDisplay.size(); ++x){
+            BoardString = BoardString+cardsDisplay[i][x];
         }
         BoardString = BoardString + "\n";
     }
 
     BoardString = BoardString + "\n" + "   1   2   3   4   5" +"\n";
     os << BoardString;
-    return os;
+
 }
 
 /**
