@@ -4,6 +4,8 @@
 /**
  * Main method to act as a game engine
  */
+
+#ifdef DEBUG_MAIN
 int main(){
 
     //receiving game mode from user
@@ -205,3 +207,4 @@ int main(){
         cout << *p << endl;
     }
 } //end main
+#endif
