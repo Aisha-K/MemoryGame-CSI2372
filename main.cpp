@@ -1,5 +1,4 @@
 #include "rules.h"
-#include "expertDisplay.h"
 #include <iostream>
 
 /**

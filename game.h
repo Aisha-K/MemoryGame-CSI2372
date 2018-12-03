@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 //#define DEBUG_GAME //runs unit tests in main
-#include "board.h"
+#include "expertDisplay.h"
 #include "player.h"
 #include <vector>
 
@@ -25,7 +25,7 @@ class Game{
     void setCurrentCard( const Card*);
     Card* getCard( const Board::Letter&, const Board::Number& );
     void setCard( const Board::Letter&, const Board::Number&, Card* );
-    void incrementRound();          //REMOVE LATER?
+    void incrementRound();
  
 };
 
