@@ -39,6 +39,7 @@ int main(){
     }
 
     Game *g = new Game(*b);
+    //NOOOOTEEEEE TOOODOOO: Change r to pointer for dynamic allocation and change all occurances to dereference
     Rules r = Rules();
     Deck<Card>& cards = CardDeck::make_CardDeck();
     Deck<Reward>& rubies = RewardDeck::make_RewardDeck();
@@ -166,6 +167,10 @@ int main(){
             if (!r.isValid(*g) ){
                 Player& pToSet = const_cast<Player&>(pnext);
                 pToSet.setActive(false);
+            }else{ //was not invalid so do the special rule if in expert display mode
+                if ( (userOrExpert.compare("E") == 0) ){
+                    r.specialRule(*g, *b);
+                }
             }
             //displaying board after flip (but ensure flip was valid to update player activeness)
             cout << *g <<endl;

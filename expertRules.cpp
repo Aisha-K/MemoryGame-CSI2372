@@ -42,6 +42,9 @@ void ExpertRules::specialRule(Game& g, Board& b){
     }
 }
 
+/**
+ * player must immediately turn over another card
+ */
 void ExpertRules::Crab(Game& g){
 
 }
@@ -62,6 +65,13 @@ void ExpertRules::Walrus(Game& g){
 
 }
 
+/**
+ * fuction to return if entered string has correct format
+ */
+Card* ExpertRules::getUserEntry(){
+ 
+}
+
 #ifdef DEBUG_EXPERTRULES
 int main(){
     Board *b = new Board();
@@ -74,3 +84,4 @@ int main(){
     e->specialRule(*g,*b);
 }
 #endif
+

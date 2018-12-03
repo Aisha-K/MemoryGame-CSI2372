@@ -20,7 +20,8 @@ class ExpertRules: public Rules{
     void Crab(Game&);   //player must immediately turn over another card
     void Turtle(Game&); //next player in cur round is skipped
 
-
+    //helper functions
+    Card* getUserEntry();
 
 };
 
