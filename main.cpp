@@ -1,11 +1,12 @@
-#include "rules.h"
+#include "expertRules.h"
 #include <iostream>
 
+//comment out "#define GAME" to test the main debuggers in other methods
+//#define GAME
+#ifdef GAME
 /**
  * Main method to act as a game engine
  */
-
-#ifdef DEBUG_MAIN
 int main(){
 
     //receiving game mode from user
@@ -39,8 +40,14 @@ int main(){
     }
 
     Game *g = new Game(*b);
-    //NOOOOTEEEEE TOOODOOO: Change r to pointer for dynamic allocation and change all occurances to dereference
-    Rules r = Rules();
+
+    Rules *r;
+    if (userOrExpert.compare("E") == 0){ //user wants to play on expert rules mode
+        r = new ExpertRules();
+    } else {    //regular display mode
+        r = new Rules();
+    }
+
     Deck<Card>& cards = CardDeck::make_CardDeck();
     Deck<Reward>& rubies = RewardDeck::make_RewardDeck();
 
@@ -83,7 +90,7 @@ int main(){
 
     rubies.shuffle();
 
-    while (!r.gameOver(*g)){
+    while (!r->gameOver(*g)){
         cards.shuffle();
         b->reset(); //reset board
         
@@ -131,10 +138,10 @@ int main(){
         }
 
         //While the round isn't over the next active player takes their turn
-        while (!r.roundOver(*g) ){
+        while (!r->roundOver(*g) ){
 
             //get next active player
-            const Player &pnext = r.getNextPlayer(*g);
+            const Player &pnext = r->getNextPlayer(*g);
 
 
             string userCardSelection;
@@ -164,13 +171,19 @@ int main(){
             }
 
             //players flip was not valid so turn player inactive
-            if (!r.isValid(*g) ){
+            if (!r->isValid(*g) ){
                 Player& pToSet = const_cast<Player&>(pnext);
                 pToSet.setActive(false);
             }else{ //was not invalid so do the special rule if in expert display mode
                 if ( (userOrExpert.compare("E") == 0) ){
                     cout << *g <<endl;
-                    r.specialRule(*g, *b);
+                    ExpertRules *ePtr =  (ExpertRules *)r;
+                    bool specialRuleValid = ePtr->specialRule(*g, *b);
+                    //the special move made the player invalid (ex crab card 2nd card selection did not match)
+                    if (!specialRuleValid){
+                        Player& pToSet = const_cast<Player&>(pnext);
+                        pToSet.setActive(false);
+                    }
                 }
             }
             //displaying board after flip (but ensure flip was valid to update player activeness)

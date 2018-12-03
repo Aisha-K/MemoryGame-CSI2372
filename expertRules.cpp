@@ -20,7 +20,7 @@ bool ExpertRules::specialRule(Game& g, Board& b){
         //Animal was a crab
         case 0:
             cout << "Crab special ability called" <<endl;
-            validMove = Crab(g);
+            validMove = Crab(g,b);
             break;
         //Animal was a Penguin
         case 1:
@@ -50,7 +50,7 @@ bool ExpertRules::specialRule(Game& g, Board& b){
 /**
  * player must immediately turn over another card
  */
-bool ExpertRules::Crab(Game& g){
+bool ExpertRules::Crab(Game& g,Board &b){
     bool userStillActive = true;    //if user is still active after their second card move
     cout << "You can now go again. ";
     
@@ -73,6 +73,9 @@ bool ExpertRules::Crab(Game& g){
     //players flip was not valid so turn player inactive
     if (!isValid(g) ){
         userStillActive = false;
+    } else {    //player flip was valid so do it's special effect
+        cout << g <<endl;
+        userStillActive = specialRule(g,b);
     }
 
     return userStillActive;
@@ -127,8 +130,8 @@ int main(){
     Board *b = new Board();
     Game *g = new Game(*b);
 
-    Player *p1 = new Player("Player1");
-    Player *p2 = new Player("Player2");
+    Player *p1 = new Player("Name1");
+    Player *p2 = new Player("Name2");
     g->addPlayer(*p1);
     g->addPlayer(*p2);
 
