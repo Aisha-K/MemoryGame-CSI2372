@@ -86,28 +86,58 @@ void Board::makeCardsDisplay(){
     }
 
     /**
-     * Replaces the card corresponding to (Letter,Num) of the board
-     * with the card pointer provided as the third arguement
+     * Swaps the card given and the card at position letter,num
+     * Also checks wether they were face down or face up to set the correct face
     */
-    void Board::setCard( const Letter& letter, const Number& num, Card* cardPtr){
+    void Board::setCard( const Letter& letter, const Number& num, Card* card2Ptr){
         //checking for exception (invalid entry)
         checkForException(letter,num);
-        
-        cardsOnBoard[ getCardIndex(letter, num) ]= cardPtr;
 
-
-        if(isFaceUp(letter, num)){  //updates string array so display shows new card, if it was already face up
-
-                //getting index of first position of the card, so top left value of card pos
-                int row = getFirstIndexOfCard(letter);
-                int col = getFirstIndexOfCard(num);
-                //replacing the string array's representation of the card to the face up representation
-                (cardsDisplay[row]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(0) );
-                (cardsDisplay[row+1]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(1) );
-                (cardsDisplay[row+2]).replace(getFirstIndexOfCard(num), 3, (*getCard(letter,num))(2) );
+        //getting the index of the card (needed to retrieve letter and number)
+        int card2Index=0;
+        for(Card* cardOnBoard : cardsOnBoard){
+            if(cardOnBoard==card2Ptr){
+                break;
+            }
+            ++card2Index;
         }
+
+        //getting the letter and number that the positions corresponds
+        Board::Letter c2Let = static_cast<Board::Letter> (card2Index/5);
+        Board::Number c2Num = static_cast<Board::Number> (card2Index%5 );
         
+        //checking wether the cards were face up
+        bool C1FaceUp = isFaceUp(letter, num);
+        bool C2FaceUp= isFaceUp(c2Let, c2Num);
+
+        //swapping ptrs
+        Card* card1Ptr= cardsOnBoard[ getCardIndex(letter, num) ];
+        cardsOnBoard[ getCardIndex(letter, num) ]= card2Ptr;
+        cardsOnBoard[ card2Index ]= card1Ptr ;
+
+        if( C2FaceUp ){  //updates string array so display shows new card, if it was already face up
+             turnAlreadyFaceUpCardFaceUp(letter, num, card2Ptr);
+        }
+        else{ turnFaceDown(letter,num);
+        }
+        if(C1FaceUp){   //updates string array so display shows new card, if it was already face up
+            turnAlreadyFaceUpCardFaceUp(c2Let,c2Num, card1Ptr);
+        }
+        else{ turnFaceDown(c2Let,c2Num);
+        }
     }
+
+
+//helper function to set an already face up card face up
+void Board::turnAlreadyFaceUpCardFaceUp(Board::Letter let, Board::Number num, Card* card){
+    //getting index of first position of the card, so top left value of card pos
+    int row = getFirstIndexOfCard(let);
+    int col = getFirstIndexOfCard(num);
+    //replacing the string array's representation of the card to the face up representation
+    (cardsDisplay[row]).replace(col, 3, (*card)(0) );
+    (cardsDisplay[row+1]).replace(col, 3, (*card)(1) );
+    (cardsDisplay[row+2]).replace(col, 3, (*card)(2) );    
+}
 
 /**
  * overwriting board "cout <<" operation to display the entire board in a board like manner
@@ -249,11 +279,11 @@ int main(){
     cout << "Displaying two cards to be swapped \n" << *b <<endl;
 
     Card* card1=b->getCard(Board::Letter::D,Board::Number::three);  
-    Card* card2=b->getCard(Board::Letter::D,Board::Number::four);
-    b->setCard(Board::Letter::D,Board::Number::three, card2);   
-    b->setCard(Board::Letter::D,Board::Number::four, card1);
-
+    b->setCard(Board::Letter::D,Board::Number::four, card1);  
     cout << "Display once both cards swapped \n" << *b <<endl;
+    Card* card2=b->getCard(Board::Letter::A,Board::Number::one);
+    b->setCard(Board::Letter::D,Board::Number::three, card2); 
+    cout << "Display once A1 and D3 swapped \n" << *b <<endl;
 
     //Testing throwing exceptions
     cout<<"Testing throwing exceptions: ";

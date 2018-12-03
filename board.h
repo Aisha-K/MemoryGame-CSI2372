@@ -1,6 +1,6 @@
 #ifndef BOARD_H
 #define BOARD_H
-//#define DEBUG_BOARD
+#define DEBUG_BOARD
 #include "rewardDeck.h"
 #include "cardDeck.h"
 #include "card.h"
@@ -63,6 +63,8 @@ class Board{
     void makeCardsDisplay();
 
     virtual void print(ostream& where) const;
+
+    void turnAlreadyFaceUpCardFaceUp(Board::Letter let, Board::Number num, Card* card);
 
 };
 

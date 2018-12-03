@@ -1,5 +1,6 @@
 #include "rules.h"
 #include <iostream>
+#ifdef MAIN
 
 /**
  * Main method to act as a game engine
@@ -199,3 +200,5 @@ int main(){
         cout << *p << endl;
     }
 } //end main
+
+#endif
