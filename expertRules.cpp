@@ -1,4 +1,9 @@
 #include "expertRules.h"
+#include <iostream>
+
+
+ExpertRules::ExpertRules(): blockedCard(nullptr){
+}
 
 /**
  * decides which function to call for the special ability
@@ -11,23 +16,29 @@ void ExpertRules::specialRule(Game& g, Board& b){
     switch(animal){
         //Animal was a crab
         case 0:
+            cout << "Crab special ability called" <<endl;
             Crab(g);
-
+            break;
         //Animal was a Penguin
         case 1:
+            cout << "Penguin special ability called" <<endl;
             Penguin(g,b);
-
+            break;
         //Animal was a Octopus
         case 2:
+            cout << "Octopus special ability called" <<endl;
             Octopus(g);
-
+            break;
         //Animal was a Turtle
         case 3:
+            cout << "Turtle special ability called" <<endl;
             Turtle(g);
-
+            break;
         //Animal was a Walrus
         case 4:
+            cout << "Walrus special ability called" <<endl;
             Walrus(g);
+            break;
     }
 }
 
@@ -53,6 +64,13 @@ void ExpertRules::Walrus(Game& g){
 
 #ifdef DEBUG_EXPERTRULES
 int main(){
+    Board *b = new Board();
+    Game *g = new Game(*b);
+    ExpertRules *e = new ExpertRules();
 
+    g->setCurrentCard( g->getCard(Board::C,Board::two) );
+    std::cout << *g << endl;
+    //testing if correct card special ability is called
+    e->specialRule(*g,*b);
 }
 #endif
