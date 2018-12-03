@@ -21,7 +21,7 @@ class ExpertRules: public Rules{
     void Turtle(Game&); //next player in cur round is skipped
 
     //helper functions
-    Card* getUserEntry();
+    string getUserEntry();
 
 };
 

@@ -66,10 +66,27 @@ void ExpertRules::Walrus(Game& g){
 }
 
 /**
- * fuction to return if entered string has correct format
+ * function to allow user to select a card
  */
-Card* ExpertRules::getUserEntry(){
- 
+string ExpertRules::getUserEntry(){
+    string userCardSelection;
+    cout << "Select a card to turn over in this format: \"LetterNumber\", ex: \"A3\": ";
+    cin >> userCardSelection;
+
+    //ensuring length
+    while (userCardSelection.size() != 2){
+        cout << "The input much be of length 2 with form \"A3\". Re-enter: ";
+        cin >> userCardSelection;
+    }
+
+    //ensuring bounds
+    while (   (((int)userCardSelection[0] -65)<0)  || (((int)userCardSelection[0] -65)>4) ||
+            (((int)userCardSelection[1] -49)<0) || (((int)userCardSelection[1] -49)>4)  ){
+        cout << "Invalid entry: Ensure letter is from A-E and number is from 1-5. Re-enter:";
+        cin >> userCardSelection;
+    }
+
+    return userCardSelection;
 }
 
 #ifdef DEBUG_EXPERTRULES
