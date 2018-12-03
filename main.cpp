@@ -169,6 +169,7 @@ int main(){
                 pToSet.setActive(false);
             }else{ //was not invalid so do the special rule if in expert display mode
                 if ( (userOrExpert.compare("E") == 0) ){
+                    cout << *g <<endl;
                     r.specialRule(*g, *b);
                 }
             }
