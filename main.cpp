@@ -2,7 +2,7 @@
 #include <iostream>
 
 //comment out "#define GAME" to test the main debuggers in other methods
-//#define GAME
+#define GAME
 #ifdef GAME
 /**
  * Main method to act as a game engine

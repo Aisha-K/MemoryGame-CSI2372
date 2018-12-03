@@ -81,9 +81,41 @@ bool ExpertRules::Crab(Game& g,Board &b){
     return userStillActive;
 }
 
+/**
+ * p can turn a face up card face down
+ */
 bool ExpertRules::Penguin(Game& g, Board& b){
+
+    //if first card then don't let player turn a card face down
+    if (g.getPreviousCard() == nullptr ){
+        cout << "You can not use powers of Penguin card since this is the first card" << endl;
+        return true;
+    }
+
+
+    //ensuring user selected a valid face up card
+    bool validEntry = false;
+    //loop to turn card facedown
+    cout << "You can turn a face up card to face down. ";
+    while(!validEntry){
+        string input = getUserEntry();
+
+        bool turnDownWorked = false;
+
+        try{
+            turnDownWorked = b.turnFaceDown(static_cast<Board::Letter>( (int)input[0] -65 ) ,static_cast<Board::Number>( (int)input[1] -49 ));
+            if (turnDownWorked){    //If turn down returned true then entry was valid
+                validEntry = true;
+            }else{      //turnDown did not work so entry was not valid
+                validEntry = false;
+                cout << "Can't turn that card face down, choose another. ";
+            }
+        }catch(...){
+            cout << "Can't turn that card face down, choose another. ";
+        }
+    }
     return true;
-} 
+}
 
 bool ExpertRules::Octopus(Game& g){
     return true;
@@ -97,6 +129,9 @@ bool ExpertRules::Turtle(Game& g){
     return true;
 } 
 
+/**
+ * A facedown card can be blocked for the next player
+ */
 bool ExpertRules::Walrus(Game& g){
     return true;
 }
@@ -136,6 +171,11 @@ int main(){
     g->addPlayer(*p2);
 
     ExpertRules *e = new ExpertRules();
+    //----TEST0----
+    g->setCurrentCard( g->getCard(Board::B,Board::two) );   //should not ask for card to turn down
+    e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
+    cout << *g << endl;
+
     //----TEST1----
     //special rule for crab
     g->setCurrentCard( g->getCard(Board::A,Board::five) );
@@ -148,9 +188,16 @@ int main(){
     cout << "Player, " << pnext.getName() <<" turn." <<endl;
     //special rule for turtle
     g->setCurrentCard( g->getCard(Board::D,Board::five) );
-    std::cout << *g << endl;
     //testing if correct card special ability is called
     e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
+    std::cout << *g << endl;
+
+
+    //----TEST3---
+    g->setCurrentCard( g->getCard(Board::B,Board::one) );   //should ask for card to turn down
+    cout << *g << endl;
+    e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
+    cout << *g << endl;
 }
 #endif
 
