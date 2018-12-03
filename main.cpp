@@ -1,4 +1,5 @@
 #include "rules.h"
+#include "expertDisplay.h"
 #include <iostream>
 
 /**
@@ -29,7 +30,13 @@ int main(){
     }
 
     cout <<endl;
-    Board *b = new Board();
+    Board *b;
+    if (displayMode.compare("E") == 0){ //user wants to play on expert display mode
+        b = new ExpertDisplay();
+    } else {    //regular display mode
+        b = new Board();
+    }
+
     Game *g = new Game(*b);
     Rules r = Rules();
     Deck<Card>& cards = CardDeck::make_CardDeck();
