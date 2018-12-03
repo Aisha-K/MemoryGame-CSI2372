@@ -7,39 +7,44 @@ ExpertRules::ExpertRules(): blockedCard(nullptr){
 
 /**
  * decides which function to call for the special ability
+ * returns true if player is still active after their special move
+ * returns false if player's move was invalid(wrong cards matched) so they should now be inactive
  */
-void ExpertRules::specialRule(Game& g, Board& b){
+bool ExpertRules::specialRule(Game& g, Board& b){
     //receiving current card to check for exceptional rules based on card animal
     const Card* currCard = g.getCurrentCard();
-
     Card::FaceAnimal animal = *currCard;
+
+    bool validMove =false;
     switch(animal){
         //Animal was a crab
         case 0:
             cout << "Crab special ability called" <<endl;
-            Crab(g);
+            validMove = Crab(g);
             break;
         //Animal was a Penguin
         case 1:
             cout << "Penguin special ability called" <<endl;
-            Penguin(g,b);
+            validMove = Penguin(g,b);
             break;
         //Animal was a Octopus
         case 2:
             cout << "Octopus special ability called" <<endl;
-            Octopus(g);
+            validMove = Octopus(g);
             break;
         //Animal was a Turtle
         case 3:
             cout << "Turtle special ability called" <<endl;
-            Turtle(g);
+            validMove = Turtle(g);
             break;
         //Animal was a Walrus
         case 4:
             cout << "Walrus special ability called" <<endl;
-            Walrus(g);
+            validMove = Walrus(g);
             break;
     }
+
+    return validMove;
 }
 
 /**
@@ -73,20 +78,24 @@ bool ExpertRules::Crab(Game& g){
     return userStillActive;
 }
 
-void ExpertRules::Penguin(Game& g, Board& b){
-
+bool ExpertRules::Penguin(Game& g, Board& b){
+    return true;
 } 
 
-void ExpertRules::Octopus(Game& g){
-
+bool ExpertRules::Octopus(Game& g){
+    return true;
 } 
 
-void ExpertRules::Turtle(Game& g){
-
+/**
+ * Next player in current round is skipped
+ */
+bool ExpertRules::Turtle(Game& g){
+    cout << "Player " << getNextPlayer(g).getName() << " turn skipped" << endl;
+    return true;
 } 
 
-void ExpertRules::Walrus(Game& g){
-
+bool ExpertRules::Walrus(Game& g){
+    return true;
 }
 
 /**
@@ -117,9 +126,25 @@ string ExpertRules::getUserEntry(){
 int main(){
     Board *b = new Board();
     Game *g = new Game(*b);
-    ExpertRules *e = new ExpertRules();
 
-    g->setCurrentCard( g->getCard(Board::A,Board::two) );
+    Player *p1 = new Player("Player1");
+    Player *p2 = new Player("Player2");
+    g->addPlayer(*p1);
+    g->addPlayer(*p2);
+
+    ExpertRules *e = new ExpertRules();
+    //----TEST1----
+    //special rule for crab
+    g->setCurrentCard( g->getCard(Board::A,Board::five) );
+    std::cout << *g << endl;
+    //testing if correct card special ability is called
+    e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
+
+    //---TEST2----
+    const Player &pnext = e->getNextPlayer(*g);
+    cout << "Player, " << pnext.getName() <<" turn." <<endl;
+    //special rule for turtle
+    g->setCurrentCard( g->getCard(Board::D,Board::five) );
     std::cout << *g << endl;
     //testing if correct card special ability is called
     e->specialRule(*g,*b);      //doing special rule corresponding to card flipped

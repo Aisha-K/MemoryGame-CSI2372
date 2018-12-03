@@ -9,15 +9,15 @@ class ExpertRules: public Rules{
 
     public:
     ExpertRules();
-    void specialRule(Game& , Board& ); //decides which function to call for the special ability
+    bool specialRule(Game& , Board& ); //decides which function to call for the special ability
 
     private:
 
-    void Octopus(Game&);    //exchange pos with an adjacent card
-    void Penguin(Game& , Board&);    //p can turn a face up card face down
-    void Walrus(Game&);     //p can block a face down card
+    bool Octopus(Game&);    //exchange pos with an adjacent card
+    bool Penguin(Game& , Board&);    //p can turn a face up card face down
+    bool Walrus(Game&);     //p can block a face down card
     bool Crab(Game&);   //player must immediately turn over another card
-    void Turtle(Game&); //next player in cur round is skipped
+    bool Turtle(Game&); //next player in cur round is skipped
 
     //helper functions
     string getUserEntry();
