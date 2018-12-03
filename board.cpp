@@ -25,7 +25,6 @@ bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
 /**
  * Board constructor
  * initializes board and all variables
- * shuffles and selects card to be used in this game
 */
 Board::Board(): cardsOnBoard({}){
     makeCardsDisplay();

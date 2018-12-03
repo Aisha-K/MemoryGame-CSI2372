@@ -82,8 +82,8 @@ int main(){
     rubies.shuffle();
 
     while (!r.gameOver(*g)){
-        b->reset(); //reset board
         cards.shuffle();
+        b->reset(); //reset board
         
         cout << "\nRound " << g->getRound() <<endl <<endl;
 

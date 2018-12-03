@@ -10,13 +10,6 @@
 
 class Board{
 
-    // class NoMoreCardsException : std::exception {
-    //     public:
-    //     const char * what () const throw (){
-    // 	return "Exception: Not enough cards to make a deck";
-    //     }
-    // };
-
 
     public:
     //cardsOnBoard must be made public to be able to flip cards through Game class with the public methods definitions we were given

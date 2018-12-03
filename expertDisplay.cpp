@@ -78,6 +78,7 @@ string ExpertDisplay::enumPosToString(const Board::Letter& let, const Board::Num
 
 //reset to all blank spaces
 void ExpertDisplay::reset(){
+    faceUpCards.clear();
     Board::reset();
     makeCardsDisplay();
 }
