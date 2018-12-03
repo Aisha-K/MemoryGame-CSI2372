@@ -8,7 +8,7 @@ int main(){
 
     //receiving game mode from user
     string userOrExpert;
-    cout << "Do you want to play in (N)ormal mode or (E)xpert mode? Enter 'N' or 'E': " <<endl;
+    cout << "Do you want to play in (N)ormal mode or (E)xpert Rules mode? Enter 'N' or 'E': " <<endl;
     cin >> userOrExpert;
     std::transform(userOrExpert.begin(), userOrExpert.end(),userOrExpert.begin(), ::toupper);
     while ( !((userOrExpert.compare("E") == 0)||(userOrExpert.compare("N")) ==0 ) ){
@@ -16,6 +16,18 @@ int main(){
         cin >> userOrExpert;
         std::transform(userOrExpert.begin(), userOrExpert.end(),userOrExpert.begin(), ::toupper);
     }
+
+    //receiving game display style
+    string displayMode;
+    cout << "Do you the display to be (N)ormal Display or (E)xpert Display? Enter 'N' or 'E': " <<endl;
+    cin >> displayMode;
+    std::transform(displayMode.begin(), displayMode.end(),displayMode.begin(), ::toupper);
+    while ( !((displayMode.compare("E") == 0)||(displayMode.compare("N")) ==0 ) ){
+        cout << "Invalid entry: 'E' or 'N' " << endl;
+        cin >> displayMode;
+        std::transform(displayMode.begin(), displayMode.end(),displayMode.begin(), ::toupper);
+    }
+
     cout <<endl;
     Board *b = new Board();
     Game *g = new Game(*b);
