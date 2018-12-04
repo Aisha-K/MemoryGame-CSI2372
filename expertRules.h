@@ -13,7 +13,7 @@ class ExpertRules: public Rules{
 
     private:
 
-    bool Octopus(Game&);    //exchange pos with an adjacent card
+    bool Octopus(Game&, Board& b);    //exchange pos with an adjacent card
     bool Penguin(Game& , Board&);    //p can turn a face up card face down
     bool Walrus(Game&);     //p can block a face down card
     bool Crab(Game&, Board&);   //player must immediately turn over another card

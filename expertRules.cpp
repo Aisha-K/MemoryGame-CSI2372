@@ -30,7 +30,7 @@ bool ExpertRules::specialRule(Game& g, Board& b){
         //Animal was a Octopus
         case 2:
             cout << "Octopus special ability called" <<endl;
-            validMove = Octopus(g);
+            validMove = Octopus(g, b);
             break;
         //Animal was a Turtle
         case 3:
@@ -117,7 +117,44 @@ bool ExpertRules::Penguin(Game& g, Board& b){
     return true;
 }
 
-bool ExpertRules::Octopus(Game& g){
+bool ExpertRules::Octopus(Game& g, Board& b){
+    Card* cardPtr = const_cast<Card*> (g.getCurrentCard());
+    int cardIndex=0;
+    for(Card* cardOnBoard : b.cardsOnBoard){
+        if(cardOnBoard==cardPtr){
+            break;
+        }
+        ++cardIndex;
+    }
+
+    cout<<"Enter the (adjacent) position you want the card to be swapped with. ";
+    string pos;
+
+    bool isAdjacent=false;   //need to check if the entered position is adjacent
+
+    Board::Letter letter;
+    Board::Number num;
+
+    //check if it was an adjacent card, ask untill vlid input
+    while(!isAdjacent){
+        pos = getUserEntry();   //checking if entered in proper format
+
+        //getting input position
+        int letterInt = ( (int)pos[0] -65 );
+        int numInt = ( (int)pos[1] -49 );
+        int i=letterInt*5 +numInt;
+
+        if( (i==cardIndex+1  && numInt!=0) || (i==cardIndex-1 && numInt!=4) || i==cardIndex+5 || i==cardIndex-5 ){  //check if input is adjacent;
+            letter= static_cast<Board::Letter>(letterInt);
+            num=  static_cast<Board::Number>(numInt);
+            isAdjacent=false;
+            break;
+        }
+        cout<<"The card must be adjacent, re-enter card. ";
+    }
+
+    //swap cards
+    g.setCard( letter, num,  cardPtr);
     return true;
 } 
 
@@ -152,7 +189,8 @@ string ExpertRules::getUserEntry(){
 
     //ensuring bounds
     while (   (((int)userCardSelection[0] -65)<0)  || (((int)userCardSelection[0] -65)>4) ||
-            (((int)userCardSelection[1] -49)<0) || (((int)userCardSelection[1] -49)>4)  ){
+            (((int)userCardSelection[1] -49)<0) || (((int)userCardSelection[1] -49)>4) ||
+           ( (((int)userCardSelection[1] -49)  )==2  &&  (((int)userCardSelection[0] -65)==2)   ) ){
         cout << "Invalid entry: Ensure letter is from A-E and number is from 1-5. Re-enter:";
         cin >> userCardSelection;
     }
