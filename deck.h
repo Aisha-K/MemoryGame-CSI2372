@@ -11,6 +11,8 @@ class Deck{
         virtual void shuffle()=0;
         virtual C* getNext()=0;
 
+        //base class virtual destructor to allow child destructors
+        virtual ~Deck(){}
 };
 
 

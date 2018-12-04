@@ -20,6 +20,8 @@ class CardDeck: public Deck<Card>{
         void shuffle();
         Card* getNext();
 
+        ~CardDeck();
+
     public:
         static CardDeck& make_CardDeck();
 };

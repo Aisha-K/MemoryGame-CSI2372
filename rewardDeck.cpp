@@ -1,6 +1,5 @@
 #include "rewardDeck.h"
 
-
 std::array<Reward*,7> RewardDeck::rewardsArr={new Reward(1), new Reward(1), new Reward(1), new Reward(2), new Reward(2), new Reward(3), new Reward(4)};
 
 
@@ -34,6 +33,16 @@ Reward* RewardDeck::getNext(){
  */
 bool RewardDeck::isEmpty() const{
     return nextRewardIndex>=rewardsArr.size();
+}
+
+/**
+ * Destructor for child class RewardDeck
+ * Deletes all rewards and frees up their memory
+ */
+RewardDeck::~RewardDeck(){
+    for (Reward* r: rewardsArr){
+        delete r;
+    }
 }
 
 

@@ -26,6 +26,7 @@ class RewardDeck : public Deck<Reward> {
     void shuffle();
     Reward* getNext();
 
+    ~RewardDeck();
 
 public:
    static RewardDeck& make_RewardDeck();

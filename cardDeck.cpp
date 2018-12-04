@@ -49,6 +49,16 @@ bool CardDeck::isEmpty() const{
     return nextCardIndex>=cardsArr.size();
 }
 
+/**
+ * Destructor for child class CardDeck
+ * Deletes all cards and frees up their memory
+ */
+CardDeck::~CardDeck(){
+    for (Card* c: cardsArr){
+        delete c;
+    }
+}
+
 #ifdef DEBUG_CARDDECK
 //main function for debugging
 int main(){
