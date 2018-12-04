@@ -42,6 +42,10 @@ class Board{
     void setCard( const Letter&, const Number&, Card* );
     virtual void reset();
 
+    //virtual destructorno implementation needed 
+    //the responsibility of destructing the cards is external (external aggregation)
+    virtual ~Board(){} 
+
 
     protected:
     //helper functions
@@ -50,10 +54,6 @@ class Board{
     int getCardIndex(const Card* card);
     virtual void print(ostream& where) const;
     //void modifyAlreadyFaceUpCard(const Letter&, const Number&, const Card* );
-
-    //virtual destructorno implementation needed 
-    //the responsibility of destructing the cards is external (external aggregation)
-    virtual ~Board(){} 
 
 
     private:
