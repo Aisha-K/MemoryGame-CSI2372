@@ -1,10 +1,12 @@
 #include "expertDisplay.h"
 #include <iostream>
 
+//constructor
 ExpertDisplay::ExpertDisplay(){
     makeCardsDisplay();
 }
 
+//initializing rows
 void ExpertDisplay::makeCardsDisplay(){
     for( auto& row: eCardsDisplay){
         row=  "                                                                                              ";             //one row is 95 char long
@@ -12,7 +14,8 @@ void ExpertDisplay::makeCardsDisplay(){
 }
 
 
-
+//to turn the card at (letter,num) to face up
+//parent call throws exceptions
 bool ExpertDisplay::turnFaceUp(const Letter& let, const Number& num){
     bool b = Board::turnFaceUp(let, num);
 

@@ -17,7 +17,8 @@ Running the game:
 Debugging:
 
 Class debug compile switches:
-Class               Debug Command
+Class          |    Debug Command
+-----------------------------------
 Card                DEBUG_CARD
 Reward              DEBUG_REWARD
 Player              DEBUG_PLAYER

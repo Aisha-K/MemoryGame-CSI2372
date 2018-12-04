@@ -1,6 +1,5 @@
 #ifndef RULES_H
 #define RULES_H
-//#define DEBUG_RULES
 
 #include "game.h"
 
@@ -19,6 +18,9 @@ class Rules{
 
     //helper functions
     protected:
+    #ifdef DEBUG_RULES
+    public:
+    #endif
     int getNumberOfActivePlayers(const Game&);
     int cardsTurnedUp;
 };

@@ -7,7 +7,7 @@ Rules::Rules(): currPlayerSide(0),cardsTurnedUp(0){
 }
 
 /**
- * returns true is previous and current card match; false otherwise.
+ * returns true if previous and current card match; false otherwise.
  */
 bool Rules::isValid(const Game& game){
     const Card* cCurr= game.getCurrentCard();
@@ -74,9 +74,10 @@ int Rules::getNumberOfActivePlayers(const Game& game) {
 }
 
 
-/**returns next available active player
-*Atleast one player must be active for this function
-*/
+/**
+ * returns next available active player
+ * Atleast one player must be active for this function
+ */
 const Player& Rules::getNextPlayer(const Game& game){
 
     int totalPlayerCount = 0;
@@ -146,6 +147,6 @@ int main(){
     cout << "testing getNextPlayer: "<< r.getNextPlayer( *g );
     cout << "\ntesting getNextPlayer: "<< r.getNextPlayer( *g );
     p->setActive(false);
-    cout << "\n testing getNextPlayer when zaid is inactive: "<< r.getNextPlayer( *g );
+    cout << "\n testing getNextPlayer when zaid is inactive: "<< r.getNextPlayer( *g ) <<endl;
 }
 #endif

@@ -51,6 +51,8 @@ bool ExpertRules::specialRule(Game& g, Board& b){
 
 /**
  * player must immediately turn over another card
+ * Returns True if player is still active after the second turnover
+ * If second turnover didn't match then returns false (player should be set inactive)
  */
 bool ExpertRules::Crab(Game& g,Board &b){
     bool userStillActive = true;    //if user is still active after their second card move
@@ -86,6 +88,8 @@ bool ExpertRules::Crab(Game& g,Board &b){
 
 /**
  * p can turn a face up card face down
+ * Ensures first card can not use penguin ability
+ * Returns true after successful face down
  */
 bool ExpertRules::Penguin(Game& g, Board& b){
 
@@ -123,6 +127,11 @@ bool ExpertRules::Penguin(Game& g, Board& b){
     return true;
 }
 
+/**
+ * Swaps current card with an adjacent card
+ * Ensures card to swap with is adjacent and then performs swap
+ * Returns true following the swap
+ */
 bool ExpertRules::Octopus(Game& g, Board& b){
     Card* cardPtr = const_cast<Card*> (g.getCurrentCard());
     int cardIndex=0;
@@ -166,6 +175,7 @@ bool ExpertRules::Octopus(Game& g, Board& b){
 
 /**
  * Next player in current round is skipped
+ * Returns true after skipping player
  */
 bool ExpertRules::Turtle(Game& g){
     cout << "Player " << getNextPlayer(g).getName() << " turn skipped" << endl;
@@ -174,6 +184,7 @@ bool ExpertRules::Turtle(Game& g){
 
 /**
  * A facedown card can be blocked for the next player
+ * Returns true after blocking
  */
 bool ExpertRules::Walrus(Game& g, Board& b){
     //ensuring user selected a valid face down card
@@ -226,6 +237,7 @@ bool ExpertRules::Walrus(Game& g, Board& b){
 
 /**
  * function to allow user to select a card
+ * Returns a string of form "A3" so a letter and number that is within range
  */
 string ExpertRules::getUserEntry(){
     string userCardSelection;
@@ -286,12 +298,6 @@ int main(){
     e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
     std::cout << *g << endl;
 
-
-    //----TEST3---
-    g->setCurrentCard( g->getCard(Board::B,Board::one) );   //should ask for card to turn down
-    cout << *g << endl;
-    e->specialRule(*g,*b);      //doing special rule corresponding to card flipped
-    cout << *g << endl;
 }
 #endif
 

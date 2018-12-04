@@ -1,6 +1,5 @@
 #include "cardDeck.h"
 #include "card.h"
-#include <iostream>
 
 //initialization of static var cardsArr
 std::array<Card*,25> CardDeck::cardsArr={};
@@ -60,6 +59,7 @@ CardDeck::~CardDeck(){
 }
 
 #ifdef DEBUG_CARDDECK
+#include <iostream>
 //main function for debugging
 int main(){
     //creating card

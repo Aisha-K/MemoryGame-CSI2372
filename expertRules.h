@@ -1,6 +1,5 @@
 #ifndef EXPERTRULES_H
 #define EXPERTRULES_H
-//#define DEBUG_EXPERTRULES
 #include "rules.h"
 
 
