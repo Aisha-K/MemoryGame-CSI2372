@@ -149,7 +149,6 @@ int main(){
             cout << "Select a card to turn over in this format: \"LetterNumber\", ex: \"A3\": ";
             cin >> userCardSelection;
 
-
             bool validEntry = false;
             //try user selection and only allow it if it's valid
             while (!validEntry){
@@ -160,6 +159,10 @@ int main(){
                 }
 
                 try{
+                    if ((userOrExpert.compare("E") == 0) ){
+                        ExpertRules *ePtr =  (ExpertRules *)r;
+                        ePtr -> checkBlocked(g->getCard(static_cast<Board::Letter>( (int)userCardSelection[0] -65 ) ,static_cast<Board::Number>( (int)userCardSelection[1] -49 ) ));
+                    }
                     g->setCurrentCard(g->getCard(static_cast<Board::Letter>( (int)userCardSelection[0] -65 ) ,static_cast<Board::Number>( (int)userCardSelection[1] -49 ) ));
                     validEntry = true; //If exception not thrown then entry was valid
                 }

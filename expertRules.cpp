@@ -1,7 +1,9 @@
 #include "expertRules.h"
 #include <iostream>
 
-
+/**
+ * Constructor
+ */
 ExpertRules::ExpertRules(): blockedCard(nullptr){
 }
 
@@ -40,7 +42,7 @@ bool ExpertRules::specialRule(Game& g, Board& b){
         //Animal was a Walrus
         case 4:
             cout << "Walrus special ability called" <<endl;
-            validMove = Walrus(g);
+            validMove = Walrus(g,b);
             break;
     }
 
@@ -169,8 +171,52 @@ bool ExpertRules::Turtle(Game& g){
 /**
  * A facedown card can be blocked for the next player
  */
-bool ExpertRules::Walrus(Game& g){
+bool ExpertRules::Walrus(Game& g, Board& b){
+    //ensuring user selected a valid face down card
+    bool validEntry = false;
+    //loop to ensure card facedown
+    cout << "You can block a facedown card for the next player. ";
+    while(!validEntry){
+        string input = getUserEntry();
+
+        bool isFaceUp = true;
+
+        try{
+            isFaceUp = b.isFaceUp(static_cast<Board::Letter>( (int)input[0] -65 ) ,static_cast<Board::Number>( (int)input[1] -49 ));
+            if (!isFaceUp){    //If card is facedown then we can block it
+                blockedCard = b.getCard(static_cast<Board::Letter>( (int)input[0] -65 ) ,static_cast<Board::Number>( (int)input[1] -49 ));
+                validEntry = true;
+            }else{      //card is not face down
+                validEntry = false;
+                cout << "Can't block that card, choose a face down card. ";
+            }
+        }catch(...){
+            cout << "Can't turn that card face down, choose another. ";
+        }
+    }
     return true;
+}
+
+/**
+ * Override Rules isValid to determine if game state is valid or not
+ * Also reset the blocked card since a turn has passed
+ */
+ bool ExpertRules::isValid(const Game& g){
+     if (blockedCard != nullptr){
+         blockedCard = nullptr;
+     }
+     return Rules::isValid(g);
+ }
+
+/**
+ * Function to check if a card is the blocked card
+ * Throws exception invalid_arguement if the arguement was the blocked card
+ */
+ void ExpertRules::checkBlocked(Card* cptr){
+    if ( blockedCard == cptr ){
+        cout << "You have selected the blocked card, Try again. " << endl;
+        throw std::invalid_argument ("Card is blocked");
+    }
 }
 
 /**
@@ -178,7 +224,7 @@ bool ExpertRules::Walrus(Game& g){
  */
 string ExpertRules::getUserEntry(){
     string userCardSelection;
-    cout << "Select a card to turn over in this format: \"LetterNumber\", ex: \"A3\": ";
+    cout << "Select a card in this format: \"LetterNumber\", ex: \"A3\": ";
     cin >> userCardSelection;
 
     //ensuring length
