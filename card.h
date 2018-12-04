@@ -14,9 +14,14 @@ class Card{
         string FaceBackgroundString[5] = {"r","g","p","b","y"};
         int numRows;
 
+    #ifdef CARD_DEBUG 
+    public:
+    #endif
+
         FaceAnimal face;
         FaceBackground colour;
     
+
         Card(FaceAnimal face, FaceBackground colour, int rows=3);
         Card& operator=(const Card& card);
         Card(const Card& card);

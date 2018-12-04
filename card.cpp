@@ -33,3 +33,19 @@ string Card::operator()(int i) const{
 
     return row;
 }
+
+
+//TESTING
+#ifdef CARD_DEBUG
+#include <iostream>
+
+int main(){
+    Card c(Card::Crab, Card::Red);
+    std::cout<<"Testing Red Crab Card conversions: \n"<<boolalpha;
+    Card::FaceAnimal face(c);
+    Card::FaceBackground colour(c);
+
+    std:cout<<"Face Animal conversion: " << (c==face)<<endl<<"Face Colour conversion: " << (c==colour);
+}
+
+#endif

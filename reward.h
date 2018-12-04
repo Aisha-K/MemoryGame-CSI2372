@@ -9,6 +9,10 @@ class Reward{
     friend class RewardDeck;
     int rubyValue; //can be values 1 to 4, inclusive
 
+    #ifdef DEBUG_REWARD
+    public:
+    #endif
+
     Reward(int rubyVal): rubyValue(rubyVal){}  //constructor
     friend std::ostream& operator<<(std:: ostream& os, const Reward& reward);
     //private copy and assignment ctors
