@@ -7,3 +7,16 @@
 }
 
 
+//UNIT TESTING
+#ifdef DEBUG_REWARD
+#include <iostream>
+int main(){
+    Reward r(2);
+    int rInt= r;
+    std::cout<<"Testing cout of int conversion: "<< rInt;
+
+}
+
+#endif
+
+

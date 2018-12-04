@@ -241,5 +241,7 @@ int main(){
     for (Player* p: playersAdd){
         delete p;
     }
-    #endif
+    
 } //end main
+
+#endif
