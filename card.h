@@ -14,7 +14,7 @@ class Card{
         string FaceBackgroundString[5] = {"r","g","p","b","y"};
         int numRows;
 
-    #ifdef CARD_DEBUG 
+    #ifdef DEBUG_CARD 
     public:
     #endif
 

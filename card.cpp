@@ -36,7 +36,7 @@ string Card::operator()(int i) const{
 
 
 //TESTING
-#ifdef CARD_DEBUG
+#ifdef DEBUG_CARD
 #include <iostream>
 
 int main(){
