@@ -94,7 +94,7 @@ int main(){
         cards.shuffle();
         b->reset(); //reset board
         
-        cout << "\nRound " << g->getRound() <<endl <<endl;
+        cout << "\nRound " << g->getRound() << " card reveal"<<endl <<endl;
 
         //resetting all players to active
         for (int i=0;i<playersAdd.size();++i){
@@ -136,6 +136,9 @@ int main(){
                 
             }
         }
+        //display the empty initial game state
+        cout << "\nRound " << g->getRound() << " Start!"<<endl <<endl;
+        cout << *g <<endl;
 
         //While the round isn't over the next active player takes their turn
         while (!r->roundOver(*g) ){
