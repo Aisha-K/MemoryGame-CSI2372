@@ -106,6 +106,9 @@ void Game::setCurrentCard( const Card* givenCard){
 }
 
 
+/**
+ * cout<< operator override, displays board then prints players below
+ */
 std::ostream& operator<<(std:: ostream& os, const Game& game){
     os << game.b << "\n";
     for (const Player *player : game.players){
@@ -115,6 +118,9 @@ std::ostream& operator<<(std:: ostream& os, const Game& game){
     return os;
 }
 
+/**increments round and resets current and previous card
+ * 
+ */
 void Game::incrementRound(){
     prevCard = nullptr;
     currCard = nullptr;
@@ -122,6 +128,7 @@ void Game::incrementRound(){
 }
 
 
+//UNIT TESTS
 #ifdef DEBUG_GAME
 #include <iostream>
 int main(){
@@ -173,9 +180,6 @@ int main(){
     game->setCard(Board::B, Board::three, card2);
     std::cout <<"testing setCard by switcing B3 and E5\n\n" << *game <<endl <<endl;
 
-    //testing setCurrentCard when we want to turn a card face down
-    game->setCurrentCard(card2);
-    std::cout<<"Testing turning card at B3 down by calling setCurrentCard again\n"<< *game << endl<< endl;
 }
 
 #endif

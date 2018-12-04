@@ -1,6 +1,5 @@
 #ifndef GAME_H
 #define GAME_H
-//#define DEBUG_GAME //runs unit tests in main
 #include "expertDisplay.h"
 #include "player.h"
 #include <vector>
@@ -14,6 +13,7 @@ class Game{
 
     //cout << operator override
     friend std::ostream& operator<<(std:: ostream& os, const Game& game);
+    
     //class methods
     public:
     Game(Board &b);

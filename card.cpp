@@ -1,5 +1,4 @@
 #include "card.h"
-#include <iostream>
 
 //card constructor
 Card::Card(FaceAnimal faceVal, FaceBackground colourVal, int rows): face(faceVal),

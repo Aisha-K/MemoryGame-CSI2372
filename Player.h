@@ -1,7 +1,6 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
-//#define DEBUG_PLAYER
 
 #include <string>
 #include "reward.h"
@@ -9,8 +8,8 @@
 class Player{
 
     public:
-        //enum type for the side of the board
-        enum Side {top, bottom, left, right};
+    //enum type for the side of the board
+    enum Side {top, bottom, left, right};
 
     //class variables
     private:

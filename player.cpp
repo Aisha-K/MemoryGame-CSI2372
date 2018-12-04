@@ -67,6 +67,7 @@ void Player::setSide(Side newSide) {
     side=newSide;
 }
 
+//cout<< operator override
 std::ostream& operator<<(std:: ostream& os, const Player& player){
     if (!player.gameEnded){
         os << player.getName() << ": ";

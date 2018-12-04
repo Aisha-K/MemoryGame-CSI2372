@@ -1,6 +1,5 @@
 #ifndef BOARD_H
 #define BOARD_H
-//#define DEBUG_BOARD
 #include "rewardDeck.h"
 #include "cardDeck.h"
 #include "card.h"
@@ -10,13 +9,12 @@
 
 class Board{
 
-
     public:
     //cardsOnBoard must be made public to be able to flip cards through Game class with the public methods definitions we were given
     // See setCurrentCard in Game for more
     std::array<Card*,25> cardsOnBoard;
 
-    class NoMoreCardsException : std::exception {
+    class NoMoreCardsException : std::exception {   //exception thrown ffrom constructor if not enough cards to make a board
         public:
         const char * what () const throw (){
     	return "Exception: Not enough cards to make a deck";
@@ -42,8 +40,8 @@ class Board{
     void setCard( const Letter&, const Number&, Card* );
     virtual void reset();
 
-    //virtual destructorno implementation needed 
-    //the responsibility of destructing the cards is external (external aggregation)
+    //virtual destructor no implementation needed 
+    //the responsibility of destructing the cards is external
     virtual ~Board(){} 
 
 
@@ -53,7 +51,6 @@ class Board{
     int getCardIndex(const Letter& letter, const Number& number) const; //returns index in the array of card pointers that the number and letter correspond to
     int getCardIndex(const Card* card);
     virtual void print(ostream& where) const;
-    //void modifyAlreadyFaceUpCard(const Letter&, const Number&, const Card* );
 
 
     private:

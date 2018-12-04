@@ -100,7 +100,7 @@ void Board::makeCardsDisplay(){
 
     /**
      * Swaps the card given and the card at position letter,num
-     * Also checks wether they were face down or face up to set the correct face
+     * Also checks wether they were face down or face up to preserve the correct orientation
     */
     void Board::setCard( const Letter& letter, const Number& num, Card* card2Ptr){
         //checking for exception (invalid entry)
@@ -126,7 +126,7 @@ void Board::makeCardsDisplay(){
         cardsOnBoard[ getCardIndex(letter, num) ]= card2Ptr;
         cardsOnBoard[ card2Index ]= card1Ptr ;
 
-        if( C2FaceUp ){  // if C2 was orginally face up, then use it's new pos to turn up
+        if( C2FaceUp ){  // if C2 was orginally face up, then use it's new pos to turn it up
             turnFaceUp(letter,num);
         }
 
