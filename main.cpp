@@ -2,11 +2,11 @@
 #include <iostream>
 
 //comment out "#define GAME" to test the main debuggers in other methods
-#define GAME
-#ifdef GAME
+
 /**
  * Main method to act as a game engine
  */
+#if !defined(DEBUG_CARD) && !defined(DEBUG_REWARD) && !defined(DEBUG_PLAYER) && !defined(DEBUG_BOARD) && !defined(DEBUG_GAME) && !defined(DEBUG_RULES) && !defined(DEBUG_CARDDECK) && !defined(DEBUG_REWARDDECK) && !defined(DEBUG_EXPERTDISPLAY) && !defined(DEBUG_EXPERTRULES)
 int main(){
 
     //receiving game mode from user
@@ -94,7 +94,7 @@ int main(){
         cards.shuffle();
         b->reset(); //reset board
         
-        cout << "\nRound " << g->getRound() <<endl <<endl;
+        cout << "\nRound " << g->getRound() << " card reveal"<<endl <<endl;
 
         //resetting all players to active
         for (int i=0;i<playersAdd.size();++i){
@@ -136,6 +136,9 @@ int main(){
                 
             }
         }
+        //display the empty initial game state
+        cout << "\nRound " << g->getRound() << " Start!"<<endl <<endl;
+        cout << *g <<endl;
 
         //While the round isn't over the next active player takes their turn
         while (!r->roundOver(*g) ){
@@ -238,6 +241,5 @@ int main(){
     for (Player* p: playersAdd){
         delete p;
     }
-
+    #endif
 } //end main
-#endif
