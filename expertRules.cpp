@@ -64,6 +64,7 @@ bool ExpertRules::Crab(Game& g,Board &b){
         try{
             g.setCurrentCard(g.getCard(static_cast<Board::Letter>( (int)input[0] -65 ) ,static_cast<Board::Number>( (int)input[1] -49 ) ));
             validEntry = true; //If exception not thrown then entry was valid
+            cardsTurnedUp++;
         }
         //exception thrown due to invalid entry
         catch(...){
@@ -116,6 +117,9 @@ bool ExpertRules::Penguin(Game& g, Board& b){
             cout << "Can't turn that card face down, choose another. ";
         }
     }
+
+    //successfully turned down a card
+    cardsTurnedUp--;
     return true;
 }
 
@@ -194,6 +198,7 @@ bool ExpertRules::Walrus(Game& g, Board& b){
             cout << "Can't turn that card face down, choose another. ";
         }
     }
+
     return true;
 }
 

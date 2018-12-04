@@ -3,7 +3,7 @@
 /**
  * Default constructor
  */
-Rules::Rules(): currPlayerSide(0){
+Rules::Rules(): currPlayerSide(0),cardsTurnedUp(0){
 }
 
 /**
@@ -36,10 +36,21 @@ bool Rules::roundOver(const Game& game){
     int activePlayerCount = getNumberOfActivePlayers(game);
 
     //if there are more than 1 players active then round is not over
-    if (activePlayerCount >1)
+    if (activePlayerCount >1){
+        cardsTurnedUp++;
         return false;
+    }
+
+    //checking if all cards have been turned up
+    //Checking for cardsTurnedOver=25 since it updates pre turnover
+    if (cardsTurnedUp==25){
+        cardsTurnedUp = 0;
+        return true;
+    }
+
 
     //round is over once there is only 1 player active
+    cardsTurnedUp=0;  //resetting for the next round
     return true;
 }
 

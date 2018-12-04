@@ -14,11 +14,13 @@ class Rules{
     bool roundOver(const Game&); // returns true if there is only one active Player left.
     const Player& getNextPlayer(const Game& );
 
-    //helper functions
-    int getNumberOfActivePlayers(const Game&);
-
     //virtual rules destructor to allow for destruction of ExpertRules child class
     virtual ~Rules();
+
+    //helper functions
+    protected:
+    int getNumberOfActivePlayers(const Game&);
+    int cardsTurnedUp;
 };
 
 #endif
