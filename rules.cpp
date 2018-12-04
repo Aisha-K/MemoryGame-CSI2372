@@ -94,6 +94,8 @@ const Player& Rules::getNextPlayer(const Game& game){
     return nextPlayer;  //otherwise return the player we got
 }
 
+Rules::~Rules(){}
+
 
 
 //-------TESTING-------

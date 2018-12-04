@@ -24,6 +24,8 @@ class ExpertRules: public Rules{
     //helper functions
     string getUserEntry();
 
+    ~ExpertRules();
+
 };
 
 #endif

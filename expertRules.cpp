@@ -244,6 +244,11 @@ string ExpertRules::getUserEntry(){
     return userCardSelection;
 }
 
+/**
+ * Expert rules destructor
+ */
+ExpertRules::~ExpertRules(){}
+
 #ifdef DEBUG_EXPERTRULES
 int main(){
     Board *b = new Board();

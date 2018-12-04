@@ -228,5 +228,16 @@ int main(){
     for (Player* p: playerPrintOrder){
         cout << *p << endl;
     }
+
+    //CardDeck and RewardDeck destructor will run followed by their base class Deck's destructor
+    delete r;   //will delete ExpertRules (if it is expert mode) then base class Rules
+
+    delete g;
+    delete b;
+
+    for (Player* p: playersAdd){
+        delete p;
+    }
+
 } //end main
 #endif

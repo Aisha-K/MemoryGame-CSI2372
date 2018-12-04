@@ -16,6 +16,9 @@ class Rules{
 
     //helper functions
     int getNumberOfActivePlayers(const Game&);
+
+    //virtual rules destructor to allow for destruction of ExpertRules child class
+    virtual ~Rules();
 };
 
 #endif
