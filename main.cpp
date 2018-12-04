@@ -2,11 +2,11 @@
 #include <iostream>
 
 //comment out "#define GAME" to test the main debuggers in other methods
-#define GAME
-#ifdef GAME
+
 /**
  * Main method to act as a game engine
  */
+#if !defined(DEBUG_CARD) && !defined(DEBUG_REWARD) && !defined(DEBUG_PLAYER) && !defined(DEBUG_BOARD) && !defined(DEBUG_GAME) && !defined(DEBUG_RULES) && !defined(DEBUG_CARDDECK) && !defined(DEBUG_REWARDDECK) && !defined(DEBUG_EXPERTDISPLAY) && !defined(DEBUG_EXPERTRULES)
 int main(){
 
     //receiving game mode from user
@@ -241,6 +241,5 @@ int main(){
     for (Player* p: playersAdd){
         delete p;
     }
-
+    #endif
 } //end main
-#endif
