@@ -20,6 +20,7 @@ class ExpertDisplay: public Board{
     bool turnFaceUp(const Letter& , const Number&); 
     bool turnFaceDown(const Letter& , const Number&); 
     void reset();
+    void setCard( const Letter& letter, const Number& num, Card* card2Ptr);
 
     void print(ostream& where) const;
 

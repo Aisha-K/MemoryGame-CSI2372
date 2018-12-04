@@ -1,4 +1,5 @@
 #include "expertDisplay.h"
+#include <iostream>
 
 ExpertDisplay::ExpertDisplay(){
     makeCardsDisplay();
@@ -32,6 +33,8 @@ bool ExpertDisplay::turnFaceUp(const Letter& let, const Number& num){
     return b;
 }
 
+
+
 //Getting card index in cards array corresponding to the letter and number
 int ExpertDisplay::getIndexOfCard(const Board::Letter& letter, const Board::Number& number) const{
     //checking for exception (invalid entry)
@@ -55,9 +58,9 @@ bool ExpertDisplay::turnFaceDown(const Letter& let, const Number& num){
     //only turn face down if it isn't already face down
     if (b){
         int index = getIndexOfCard(let,num);
-
+        //std::cout<<let<<" "<<num<<" turn face down \n";
         faceUpCards.erase(faceUpCards.begin() + index);
-
+        
         //Adding four empties to the end of row
         for (string& row: eCardsDisplay){
             row.replace(index*4, 4, "" );    //removing from the current display
@@ -91,7 +94,7 @@ void ExpertDisplay::print(ostream& where) const{
 }
 
 #ifdef DEBUG_EXPERTDISPLAY
-#include <iostream>
+
 
 int main(){
 
@@ -105,9 +108,29 @@ int main(){
     e->turnFaceUp(Board::A, Board::two);
     std::cout<< *e;
 
+    //testing swap, with setCard
+    Card* card= e->getCard( Board::A, Board::two );
+    e->setCard(Board::B, Board::one, card);
+    std::cout<< "testing swapping prev two turned up cards \n"<<*e;
+
     //testing board display
     e->turnFaceDown(Board::A,Board::two);
-    std::cout<< *e;
+    std::cout<<"turned A2 face down \n"<< *e;
+
+    //testing swap, with setCard
+    card= e->getCard( Board::A, Board::two );
+    e->setCard(Board::B, Board::one, card);
+    std::cout<< "testing swapping face down adn face up card \n";
+    std::cout<<*e;
+    e->turnFaceUp(Board::A,Board::two);
+    std::cout<<"turned A2 face up \n"<< *e;
+
+    card= e->getCard( Board::A, Board::two );
+    e->turnFaceDown(Board::B,Board::one);
+    std::cout<<"turned B1 face down \n"<< *e;
+    e->setCard(Board::B, Board::one, card);
+    std::cout<< "testing swapping face down and face up card \n";
+    std::cout<<*e;
 }
 
 #endif

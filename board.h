@@ -22,13 +22,10 @@ class Board{
     private:
     //holds array of Strigns correspoding to display of the game. 19 rows by 19 chars, 3*5 = 15, 15 + 4 spaces
     std::array<string,19> cardsDisplay;
-    //cout << operator override
-    friend std::ostream& operator<<(std:: ostream& os, const Board& board);
 
     
     public:
-    //ctor Board, throws not enough cards exception
-    Board();
+    Board();     //ctor Board, throws not enough cards exception
 
     //functions below throw exception of type OutOfRange
     bool isFaceUp ( const Letter& , const Number&) const; 
@@ -42,7 +39,16 @@ class Board{
     protected:
     //helper functions
     void checkForException(const Letter&, const Number&) const;
+    int getCardIndex(const Letter& letter, const Number& number) const; //returns index in the array of card pointers that the number and letter correspond to
+    int getCardIndex(const Card* card);
+    virtual void print(ostream& where) const;
+    //void modifyAlreadyFaceUpCard(const Letter&, const Number&, const Card* );
+
+
+    private:
+    friend std::ostream& operator<<(std:: ostream& os, const Board& board);  //cout << operator override
     void initializeDeck();
+
     // returns index corresponding to the first row of the display where the card corresponding
     //to the given Letter is stored, (same for the column if a Number is given)
     template<typename T>
@@ -50,14 +56,8 @@ class Board{
         return (enumtype*4);
     }
 
-    //returns index in the array of card pointers that the number and letter correspond to
-    int getCardIndex(const Letter& letter, const Number& number) const;
-
     void makeCardsDisplay();
 
-    virtual void print(ostream& where) const;
-
-    void turnAlreadyFaceUpCardFaceUp(Board::Letter let, Board::Number num, Card* card);
 
 };
 

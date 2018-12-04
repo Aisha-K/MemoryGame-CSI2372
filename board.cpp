@@ -84,6 +84,18 @@ void Board::makeCardsDisplay(){
         return cardsOnBoard[ getCardIndex(letter, num) ];
     }
 
+    int Board::getCardIndex(const Card* card){
+        int cardIndex=0;
+        for(Card* cardOnBoard : cardsOnBoard){
+            if(cardOnBoard==card){
+                break;
+            }
+            ++cardIndex;
+        }    
+
+        return cardIndex;    
+    }
+
     /**
      * Swaps the card given and the card at position letter,num
      * Also checks wether they were face down or face up to set the correct face
@@ -93,13 +105,7 @@ void Board::makeCardsDisplay(){
         checkForException(letter,num);
 
         //getting the index of the card (needed to retrieve letter and number)
-        int card2Index=0;
-        for(Card* cardOnBoard : cardsOnBoard){
-            if(cardOnBoard==card2Ptr){
-                break;
-            }
-            ++card2Index;
-        }
+        int card2Index=getCardIndex(card2Ptr);
 
         //getting the letter and number that the positions corresponds
         Board::Letter c2Let = static_cast<Board::Letter> (card2Index/5);
@@ -109,34 +115,25 @@ void Board::makeCardsDisplay(){
         bool C1FaceUp = isFaceUp(letter, num);
         bool C2FaceUp= isFaceUp(c2Let, c2Num);
 
+        //turning them face down
+        turnFaceDown(letter, num);
+        turnFaceDown(c2Let, c2Num);
+
         //swapping ptrs
         Card* card1Ptr= cardsOnBoard[ getCardIndex(letter, num) ];
         cardsOnBoard[ getCardIndex(letter, num) ]= card2Ptr;
         cardsOnBoard[ card2Index ]= card1Ptr ;
 
-        if( C2FaceUp ){  //updates string array so display shows new card, if it was already face up
-             turnAlreadyFaceUpCardFaceUp(letter, num, card2Ptr);
+        if( C2FaceUp ){  // if C2 was orginally face up, then use it's new pos to turn up
+            turnFaceUp(letter,num);
         }
-        else{ turnFaceDown(letter,num);
+
+        if(C1FaceUp){   /// if C1 was orginally face up, then use it's new pos to turn up
+            turnFaceUp(c2Let,c2Num);
         }
-        if(C1FaceUp){   //updates string array so display shows new card, if it was already face up
-            turnAlreadyFaceUpCardFaceUp(c2Let,c2Num, card1Ptr);
-        }
-        else{ turnFaceDown(c2Let,c2Num);
-        }
+
     }
 
-
-//helper function to set an already face up card face up
-void Board::turnAlreadyFaceUpCardFaceUp(Board::Letter let, Board::Number num, Card* card){
-    //getting index of first position of the card, so top left value of card pos
-    int row = getFirstIndexOfCard(let);
-    int col = getFirstIndexOfCard(num);
-    //replacing the string array's representation of the card to the face up representation
-    (cardsDisplay[row]).replace(col, 3, (*card)(0) );
-    (cardsDisplay[row+1]).replace(col, 3, (*card)(1) );
-    (cardsDisplay[row+2]).replace(col, 3, (*card)(2) );    
-}
 
 /**
  * overwriting board "cout <<" operation to display the entire board in a board like manner
@@ -244,6 +241,9 @@ void Board::initializeDeck(){
         cardsOnBoard[i] = cardDeck.getNext();
     }
 }
+
+
+
 
 void Board::checkForException(const Letter& letter, const Number& num) const{
     if( letter==C && num==three){   //if blank card in centre
