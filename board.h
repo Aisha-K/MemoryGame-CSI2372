@@ -15,6 +15,13 @@ class Board{
     //cardsOnBoard must be made public to be able to flip cards through Game class with the public methods definitions we were given
     // See setCurrentCard in Game for more
     std::array<Card*,25> cardsOnBoard;
+
+    class NoMoreCardsException : std::exception {
+        public:
+        const char * what () const throw (){
+    	return "Exception: Not enough cards to make a deck";
+        }
+    };
     
     enum Letter { A, B, C, D, E};     //corresponding to row
     enum Number{ one, two, three, four, five};    //corresponds to column
@@ -44,6 +51,10 @@ class Board{
     virtual void print(ostream& where) const;
     //void modifyAlreadyFaceUpCard(const Letter&, const Number&, const Card* );
 
+    //virtual destructorno implementation needed 
+    //the responsibility of destructing the cards is external (external aggregation)
+    virtual ~Board(){} 
+
 
     private:
     friend std::ostream& operator<<(std:: ostream& os, const Board& board);  //cout << operator override
@@ -57,6 +68,7 @@ class Board{
     }
 
     void makeCardsDisplay();
+
 
 
 };

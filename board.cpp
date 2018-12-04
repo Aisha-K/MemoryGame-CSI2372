@@ -1,5 +1,4 @@
 #include "board.h"
-#include <iostream>
 
 /**
  * Function to return true if card at position (letter,number) is faced up
@@ -27,12 +26,15 @@ bool Board::isFaceUp ( const Letter& letter, const Number& number) const{
  * initializes board and all variables
 */
 Board::Board(): cardsOnBoard({}){
-    makeCardsDisplay();
+    makeCardsDisplay(); //iniatlize cardsDisplay array which represents the board
     //Selecting cards to be on board
-    initializeDeck();
+    initializeDeck();   //initalize array of cards in deck
 }
 
 
+/**
+ * inisatiles the cardsDisplay array representing teh board that will be printed with cout
+ */
 void Board::makeCardsDisplay(){
         for ( auto &tableRow : cardsDisplay){
         tableRow = "                   ";
@@ -233,18 +235,30 @@ void Board::reset(){
 
 }
 
+/**
+ * iniatilized array of cards representing the carddeck
+ */
 void Board::initializeDeck(){
 
     Deck<Card>& cardDeck = CardDeck::make_CardDeck();
+    int numOfCards=0;
 
-    for(int i=0; i<cardsOnBoard.size(); ++i){
+    for(int i=0; i<cardsOnBoard.size(); ++i){   //initializing carddeck
+        numOfCards++;
         cardsOnBoard[i] = cardDeck.getNext();
+    }
+
+    if(numOfCards<25 ){
+        throw NoMoreCardsException();       //throw exception
     }
 }
 
 
 
-
+/**
+ * checks wether the given letter and number are in range of the board 
+ * i.e. Letter A to E, and Number= 1 to 50
+ */
 void Board::checkForException(const Letter& letter, const Number& num) const{
     if( letter==C && num==three){   //if blank card in centre
             throw std::out_of_range ("Exception: Position C3 holds no card");
@@ -255,8 +269,11 @@ void Board::checkForException(const Letter& letter, const Number& num) const{
         }
 }
 
+
+
 //---------TESTING------------
 #ifdef DEBUG_BOARD
+#include <iostream>
 int main(){
     //creating board to test on
     Board *b = new Board();

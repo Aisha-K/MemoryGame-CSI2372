@@ -26,6 +26,10 @@ class ExpertDisplay: public Board{
 
     int getIndexOfCard(const Letter& , const Number&) const;
 
+ 
+    //this class does not have the responsibility of destructing the cards (external aggregation)
+    ~ExpertDisplay(){}//destructor
+
 };
 
 #endif
